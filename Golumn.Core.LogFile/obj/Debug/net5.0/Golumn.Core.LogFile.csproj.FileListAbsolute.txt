@@ -1,0 +1,24 @@
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\bin\Debug\net5.0\Golumn.Core.LogFile.deps.json
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\bin\Debug\net5.0\Golumn.Core.LogFile.dll
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\bin\Debug\net5.0\ref\Golumn.Core.LogFile.dll
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\bin\Debug\net5.0\Golumn.Core.LogFile.pdb
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.csproj.AssemblyReference.cache
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.AssemblyInfoInputs.cache
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.AssemblyInfo.cs
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.csproj.CoreCompileInputs.cache
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.dll
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\obj\Debug\net5.0\ref\Golumn.Core.LogFile.dll
+C:\Projects\Sandbox\WinGlmCore\Golumn.Core.Windows\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.pdb
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\bin\Debug\net5.0\Golumn.Core.LogFile.deps.json
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\bin\Debug\net5.0\Golumn.Core.LogFile.dll
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\bin\Debug\net5.0\ref\Golumn.Core.LogFile.dll
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\bin\Debug\net5.0\Golumn.Core.LogFile.pdb
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.csproj.AssemblyReference.cache
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.AssemblyInfoInputs.cache
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.AssemblyInfo.cs
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.csproj.CoreCompileInputs.cache
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.dll
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\obj\Debug\net5.0\ref\Golumn.Core.LogFile.dll
+C:\Projects\Sandbox\WinGlmCoreGit\Glm Timetracker Core\Golumn.Core.LogFile\obj\Debug\net5.0\Golumn.Core.LogFile.pdb

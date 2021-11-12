@@ -1,0 +1,11 @@
+c:\publish\winglmTest\Golumn.Core.Windows.exe
+c:\publish\winglmTest\Golumn.Core.Windows.dll
+c:\publish\winglmTest\Golumn.Core.Windows.deps.json
+c:\publish\winglmTest\Golumn.Core.Windows.runtimeconfig.json
+c:\publish\winglmTest\Golumn.Core.Windows.dll.config
+c:\publish\winglmTest\Golumn.Core.Windows.pdb
+c:\publish\winglmTest\Newtonsoft.Json.dll
+c:\publish\winglmTest\Golumn.Core.LogFile.dll
+c:\publish\winglmTest\Shortcut.dll
+c:\publish\winglmTest\Golumn.Core.LogFile.pdb
+c:\publish\winglmTest\Shortcut.xml
