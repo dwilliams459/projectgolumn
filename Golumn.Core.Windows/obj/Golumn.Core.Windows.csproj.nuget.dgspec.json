@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.Windows\\Golumn.Core.Windows.csproj": {}
+    "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Windows\\Golumn.Core.Windows.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj": {
+    "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Data\\Golumn.Core.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj",
-        "projectName": "Golumn.Core.LogFile",
-        "projectPath": "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj",
+        "projectUniqueName": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Data\\Golumn.Core.Data.csproj",
+        "projectName": "Golumn.Core.Data",
+        "projectPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Data\\Golumn.Core.Data.csproj",
         "packagesPath": "C:\\Users\\david.williams1\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.LogFile\\obj\\",
+        "outputPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
@@ -28,7 +28,152 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Domain\\Golumn.Core.Domain.csproj": {
+                "projectPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Domain\\Golumn.Core.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Domain\\Golumn.Core.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Domain\\Golumn.Core.Domain.csproj",
+        "projectName": "Golumn.Core.Domain",
+        "projectPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Domain\\Golumn.Core.Domain.csproj",
+        "packagesPath": "C:\\Users\\david.williams1\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\david.williams1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj",
+        "projectName": "Golumn.Core.LogFile",
+        "projectPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj",
+        "packagesPath": "C:\\Users\\david.williams1\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.LogFile\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\david.williams1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
         },
         "frameworks": {
           "net5.0": {
@@ -74,14 +219,14 @@
         }
       }
     },
-    "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.Windows\\Golumn.Core.Windows.csproj": {
+    "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Windows\\Golumn.Core.Windows.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.Windows\\Golumn.Core.Windows.csproj",
+        "projectUniqueName": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Windows\\Golumn.Core.Windows.csproj",
         "projectName": "Golumn.Core.Windows",
-        "projectPath": "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.Windows\\Golumn.Core.Windows.csproj",
+        "projectPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Windows\\Golumn.Core.Windows.csproj",
         "packagesPath": "C:\\Users\\david.williams1\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.Windows\\obj\\",
+        "outputPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Windows\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
@@ -94,18 +239,25 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0-windows"
+          "net5.0-windows7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
         },
         "frameworks": {
           "net5.0-windows7.0": {
             "targetAlias": "net5.0-windows",
             "projectReferences": {
-              "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj": {
-                "projectPath": "C:\\Projects\\Sandbox\\WinGlmCoreGit\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj"
+              "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Data\\Golumn.Core.Data.csproj": {
+                "projectPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Data\\Golumn.Core.Data.csproj"
+              },
+              "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Domain\\Golumn.Core.Domain.csproj": {
+                "projectPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.Domain\\Golumn.Core.Domain.csproj"
+              },
+              "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj": {
+                "projectPath": "C:\\Projects\\Sandbox\\WinGlmCore\\Glm Timetracker Core\\Golumn.Core.LogFile\\Golumn.Core.LogFile.csproj"
               }
             }
           }

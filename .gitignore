@@ -396,3 +396,18 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio
+Golumn.Core.Windows/bin/Debug/net5.0-windows/Golumn.Core.LogFile.dll
+Golumn.Core.Windows/bin/Debug/net5.0-windows/Golumn.Core.LogFile.pdb
+Golumn.Core.Windows/bin/Debug/net5.0-windows/Golumn.Core.Windows.deps.json
+Golumn.Core.Windows/bin/Debug/net5.0-windows/Golumn.Core.Windows.dll
+Golumn.Core.Windows/bin/Debug/net5.0-windows/Golumn.Core.Windows.pdb
+Golumn.Core.Windows/obj/Golumn.Core.Windows.csproj.nuget.dgspec.json
+Golumn.Core.Windows/obj/project.assets.json
+Golumn.Core.Windows/obj/project.nuget.cache
+Golumn.Core.Windows/obj/Debug/net5.0-windows/Golumn.Core.Windows.assets.cache
+Golumn.Core.Windows/obj/Debug/net5.0-windows/Golumn.Core.Windows.csproj.AssemblyReference.cache
+Golumn.Core.Windows/obj/Debug/net5.0-windows/Golumn.Core.Windows.csproj.CoreCompileInputs.cache
+Golumn.Core.Windows/obj/Debug/net5.0-windows/Golumn.Core.Windows.csproj.FileListAbsolute.txt
+Golumn.Core.Windows/obj/Debug/net5.0-windows/Golumn.Core.Windows.dll
+Golumn.Core.Windows/obj/Debug/net5.0-windows/Golumn.Core.Windows.genruntimeconfig.cache
+Golumn.Core.Windows/obj/Debug/net5.0-windows/Golumn.Core.Windows.pdb

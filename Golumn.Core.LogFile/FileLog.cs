@@ -14,7 +14,7 @@ namespace Golumn.Core.LogFile
         public static void LogEvent(string description, string userStoryId = "", string length = "")
         {
 
-            var dateNow = DateTime.Now.ToString("MM/dd/yy HH:mm");
+            var dateNow = DateTime.Now.ToString("MM/dd/yy");
 
             var logfile = ConfigurationManager.AppSettings["filename"]; //  "c:/golumn/worklog.txt";
 
@@ -45,7 +45,7 @@ namespace Golumn.Core.LogFile
         public static void LogEventCSV(string description, string userStoryId = "", string length = "")
         {
 
-            var dateNow = DateTime.Now.ToString("MM/dd/yy HH:mm");
+            var dateNow = DateTime.Now.ToString("MM/dd/yy");
 
             var logfile = ConfigurationManager.AppSettings["filename"]; //  "c:/golumn/worklog.txt";
 
