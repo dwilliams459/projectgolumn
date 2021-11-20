@@ -51,13 +51,11 @@ namespace Golumn.Core.LogFile
 
             var text = $"{dateNow}, {userStoryId}, {length}, {description}{System.Environment.NewLine}";
 
-            bool newFile = false;
             if (!File.Exists(logfile))
             {
                 var path = Path.GetDirectoryName(logfile);
                 System.IO.Directory.CreateDirectory(logfile);
-                System.IO.File.AppendAllText(path, $"Date, UserStory, Length, Description");
-                newFile = true;
+                System.IO.File.AppendAllText(path, $"Date,UserStory,Length,Description");
             }
 
             File.AppendAllText(logfile, text);
