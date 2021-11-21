@@ -12,7 +12,10 @@ namespace Golumn.Core.Service
         {
         }
 
-        public async Task<bool> AddTimeEvent()
+        //public async Task<bool> AddTimeEvent()
+        //{
+            
+        //}
 
     }
 }

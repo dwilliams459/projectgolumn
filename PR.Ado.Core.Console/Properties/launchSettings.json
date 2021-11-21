@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PR.Recovery.Ado.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "r 5000"
+    }
+  }
+}

@@ -1,12 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.170.0" />
+        <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.170.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <ProjectReference Include="..\Golumn.Core.Data\Golumn.Core.Data.csproj" />
     <ProjectReference Include="..\Golumn.Core.Domain\Golumn.Core.Domain.csproj" />
+    <ProjectReference Include="..\Golumn.Core.LogFile\Golumn.Core.LogFile.csproj" />
+    <ProjectReference Include="..\PR.ADO.Core.Data\PR.ADO.Core.Data.csproj" />
+    <ProjectReference Include="..\PR.ADO.Core.Domain\PR.ADO.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,4 +5,11 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Golumn.Core.Data\Golumn.Core.Data.csproj" />
+    <ProjectReference Include="..\Golumn.Core.Domain\Golumn.Core.Domain.csproj" />
+    <ProjectReference Include="..\Golumn.Core.LogFile\Golumn.Core.LogFile.csproj" />
+    <ProjectReference Include="..\Golumn.Core.Service\Golumn.Core.Service.csproj" />
+  </ItemGroup>
+
 </Project>
