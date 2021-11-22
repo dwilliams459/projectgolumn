@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Golumn.Core.Windows
 {
-    public partial class MainForm : BaseForm
+    public partial class MainForm : Form
     {
         private readonly HotkeyBinder hotkeyBinder = new HotkeyBinder();
         private readonly RegistryKey registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\WinGlmCore");
@@ -162,8 +162,16 @@ namespace Golumn.Core.Windows
 
         private void generateTimesheetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var reportService = new TimeReportService();
-            reportService.WriteTimeReportCSV();
+            try
+            {
+                var reportService = new TimeReportService();
+                var a = reportService.WriteTimeReportCSV().Result;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }        
         }
     }
 }

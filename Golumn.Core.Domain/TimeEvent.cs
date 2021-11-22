@@ -6,10 +6,10 @@ namespace Golumn.Core.Domain
     public class TimeEvent
     {
         [Key]
-        public int Id { get; set; }
-        public DateTime EventDate { get; set; }
+        public int? Id { get; set; }
+        public DateTime? EventDate { get; set; }
         public string UserStory { get; set; }
-        public decimal Length { get; set; }
+        public decimal? Length { get; set; }
         public string Description { get; set; }
 
         public string EventDateFormated()
@@ -19,7 +19,7 @@ namespace Golumn.Core.Domain
                 return string.Empty;
             }
 
-            return EventDate.ToString("MM/dd/yyyy");
+            return EventDate == null ? null : EventDate.Value.ToString("MM/dd/yyyy");
         }
     }
 }

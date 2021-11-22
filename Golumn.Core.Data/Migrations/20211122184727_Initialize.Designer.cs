@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Golumn.Core.Data.Migrations
 {
     [DbContext(typeof(TimeEventsContext))]
-    [Migration("20211121192833_Initial")]
-    partial class Initial
+    [Migration("20211122184727_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

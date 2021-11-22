@@ -1,5 +1,6 @@
 ﻿using Golumn.Core.Common;
 using Golumn.Core.Domain;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,8 @@ namespace Golumn.Core.Service
 
             try
             {
-                var logfile = ConfigurationManager.AppSettings["filename"];
-                var logText = await File.ReadAllTextAsync(logfile);
+                var logFilePath = _config.GetValue<string>("logFilename");
+                var logText = await File.ReadAllTextAsync(logFilePath);
 
                 if (string.IsNullOrWhiteSpace(logText))
                 {
@@ -43,14 +44,14 @@ namespace Golumn.Core.Service
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error parsing json: " + ex.Message);
+                Console.WriteLine("Error building or writing time report: " + ex.Message);
                 return false;
             }
         }
 
         private async Task BuildCsvFile(List<TimeEvent> eventList)
         {
-            var reportFilename = ConfigurationManager.AppSettings["reportFilename"];
+            var reportFilename = _config.GetValue<string>("reportFilename");
 
             // Create directories if not exist
             var path = Path.GetDirectoryName(reportFilename);
@@ -62,14 +63,19 @@ namespace Golumn.Core.Service
                 File.Delete(reportFilename);
             }
 
-            // Write header
-            await System.IO.File.AppendAllTextAsync(reportFilename, $"Date,UserStory,Length,Description");
+            // Build CSV Text
+            var csvText = new StringBuilder();
+            csvText.AppendLine($"Date,UserStory,Length,Description");
 
+            // Write Body
             foreach (var te in eventList)
             {
-                await File.AppendAllTextAsync(reportFilename, $"{te.EventDateFormated()}, {te.UserStory}, {te.Length}, {te.Description}{System.Environment.NewLine}");
+                csvText.AppendLine($"{te.EventDateFormated()}, {te.UserStory}, {te.Length}, {te.Description} ");
             }
 
+            // Write File
+            await File.AppendAllTextAsync(reportFilename, csvText.ToString());
         }
     }
 }
+ 

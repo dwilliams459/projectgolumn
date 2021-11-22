@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Golumn.Core.Windows
 {
-    public partial class LogText : BaseForm
+    public partial class LogText : Form
     {
         private bool isValid;
 
@@ -46,7 +46,8 @@ namespace Golumn.Core.Windows
                 {
                     try
                     {
-                        FileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
+                        var fileLog = new FileLog();
+                        fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
                         //FileLog.LogEventCSV(txtDescription.Text, txtUsId.Text, txtLength.Text);
 
                         e.Handled = true;

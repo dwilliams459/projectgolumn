@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,21 +10,32 @@ using System.Threading.Tasks;
 
 namespace Golumn.Core.LogFile
 {
-    public class FileLog
+
+    public class FileLog 
     {
-        public static void LogEvent(string description, string userStoryId = "", string length = "")
+        private IConfiguration _config;
+
+        public FileLog()
+        {
+            _config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json").Build();
+
+            var csvOutfilePath = _config.GetValue<string>("logFilename");
+        }
+
+        public void LogEvent(string description, string userStoryId = "", string length = "")
         {
 
             var dateNow = DateTime.Now.ToString("MM/dd/yy");
 
-            var logfile = ConfigurationManager.AppSettings["filename"]; //  "c:/golumn/worklog.txt";
+            var logfile = _config.GetValue<string>("logFilename");
 
             //File.AppendAllText(logfile, $"{dateNow}, {text}{System.Environment.NewLine}");
-            var text = $"{System.Environment.NewLine}{{ 'Time': '{dateNow}', 'UserStory': '{userStoryId}', 'Length': '{length}', 'Event': '{description}' }} {System.Environment.NewLine}";
+            var text = $"{{'EventDate':'{dateNow}','UserStory':{userStoryId},'Length':{length},'Description':'{description}'}}";
 
             // Format
-            dynamic parsedJson = JsonConvert.DeserializeObject(text);
-            var jsonText = JsonConvert.SerializeObject(parsedJson); //, Formatting.Indented);
+            //dynamic parsedJson = JsonConvert.DeserializeObject(text);
+            //var jsonText = JsonConvert.SerializeObject(parsedJson); //, Formatting.Indented);
 
             bool newFile = false;
             if (!File.Exists(logfile))
@@ -38,15 +50,15 @@ namespace Golumn.Core.LogFile
                 File.AppendAllText(logfile, $"{System.Environment.NewLine}");
             }
 
-            File.AppendAllText(logfile, $"{jsonText},");
-            Console.WriteLine($"Logged: {dateNow} {jsonText}");
+            File.AppendAllText(logfile, $"{text},");
+            Console.WriteLine($"Logged: {dateNow} {text}");
         }
 
-        public static void LogEventCSV(string description, string userStoryId = "", string length = "")
+        public void LogEventCSV(string description, string userStoryId = "", string length = "")
         {
             var dateNow = DateTime.Now.ToString("MM/dd/yy");
 
-            var logfile = ConfigurationManager.AppSettings["filename"]; //  "c:/golumn/worklog.txt";
+            var logfile = _config.GetValue<string>("logFilename");
 
             var text = $"{dateNow}, {userStoryId}, {length}, {description}{System.Environment.NewLine}";
 

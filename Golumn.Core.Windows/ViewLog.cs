@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Golumn.Core.Windows
 {
-    public partial class ViewLog : BaseForm
+    public partial class ViewLog : Form
     {
         public ViewLog()
         {
