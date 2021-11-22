@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PR.ADO.Core.Domain", "PR.AD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PR.ADO.Core.Console", "PR.Ado.Core.Console\PR.ADO.Core.Console.csproj", "{371AAE44-B65E-4F80-A11E-EAA8422051F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Golumn.Core.Common", "Golumn.Core.Common\Golumn.Core.Common.csproj", "{971CB8D7-2326-4AB4-8970-BF3ACD9B10D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{371AAE44-B65E-4F80-A11E-EAA8422051F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{371AAE44-B65E-4F80-A11E-EAA8422051F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{371AAE44-B65E-4F80-A11E-EAA8422051F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{971CB8D7-2326-4AB4-8970-BF3ACD9B10D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{971CB8D7-2326-4AB4-8970-BF3ACD9B10D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{971CB8D7-2326-4AB4-8970-BF3ACD9B10D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{971CB8D7-2326-4AB4-8970-BF3ACD9B10D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

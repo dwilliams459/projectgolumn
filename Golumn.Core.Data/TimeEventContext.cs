@@ -7,13 +7,13 @@ namespace Golumn.Core.Data
     {
         public DbSet<TimeEvent> TimeEvents { get; set; }
 
-        public string DbPath { get; private set; }    
+        private readonly string dBPath; 
 
         public TimeEventsContext()
         {
-            DbPath = "./data/TimeEvents.db";
+            dBPath = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"F:\\Projects\\Sandbox\\AdoGlmTimeTracker\\Glm Timetracker Core\\Golumn.Core.Domain\\App_Data\\PRTimeEvents.mdf\";Integrated Security=True";
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite($"Data Source={DbPath}");
+            => options.UseSqlServer(dBPath);
     }
 }

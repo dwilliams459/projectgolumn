@@ -1,8 +1,9 @@
 ﻿using System;
 
-namespace Golumn.Core.Data
+namespace Column.Core.Common
 {
     public class Class1
     {
+
     }
 }

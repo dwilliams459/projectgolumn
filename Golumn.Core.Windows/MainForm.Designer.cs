@@ -39,6 +39,7 @@ namespace Golumn.Core.Windows
             this.hotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pullRequestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateTimesheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.icon = new System.Windows.Forms.NotifyIcon(this.components);
             this.hotkeyTextBox = new Shortcut.Forms.HotkeyTextBox();
@@ -84,41 +85,49 @@ namespace Golumn.Core.Windows
             this.hotkeyToolStripMenuItem,
             this.viewLogToolStripMenuItem,
             this.pullRequestsToolStripMenuItem,
+            this.generateTimesheetToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.iconContextMenu.Name = "iconContextMenu";
-            this.iconContextMenu.Size = new System.Drawing.Size(138, 114);
+            this.iconContextMenu.Size = new System.Drawing.Size(181, 158);
             // 
             // logToolStripMenuItem
             // 
             this.logToolStripMenuItem.Name = "logToolStripMenuItem";
-            this.logToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.logToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.logToolStripMenuItem.Text = "Log";
             this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
             // 
             // hotkeyToolStripMenuItem
             // 
             this.hotkeyToolStripMenuItem.Name = "hotkeyToolStripMenuItem";
-            this.hotkeyToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.hotkeyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hotkeyToolStripMenuItem.Text = "Hotkey";
             this.hotkeyToolStripMenuItem.Click += new System.EventHandler(this.hotkeyToolStripMenuItem_Click);
             // 
             // viewLogToolStripMenuItem
             // 
             this.viewLogToolStripMenuItem.Name = "viewLogToolStripMenuItem";
-            this.viewLogToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.viewLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewLogToolStripMenuItem.Text = "Edit Log";
             this.viewLogToolStripMenuItem.Click += new System.EventHandler(this.viewLogToolStripMenuItem_Click);
             // 
             // pullRequestsToolStripMenuItem
             // 
             this.pullRequestsToolStripMenuItem.Name = "pullRequestsToolStripMenuItem";
-            this.pullRequestsToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.pullRequestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pullRequestsToolStripMenuItem.Text = "Pull Reuests";
+            // 
+            // generateTimesheetToolStripMenuItem
+            // 
+            this.generateTimesheetToolStripMenuItem.Name = "generateTimesheetToolStripMenuItem";
+            this.generateTimesheetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.generateTimesheetToolStripMenuItem.Text = "Generate Timesheet";
+            this.generateTimesheetToolStripMenuItem.Click += new System.EventHandler(this.generateTimesheetToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -176,5 +185,6 @@ namespace Golumn.Core.Windows
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private Shortcut.Forms.HotkeyTextBox hotkeyTextBox;
         public System.Windows.Forms.NotifyIcon icon;
+        private System.Windows.Forms.ToolStripMenuItem generateTimesheetToolStripMenuItem;
     }
 }

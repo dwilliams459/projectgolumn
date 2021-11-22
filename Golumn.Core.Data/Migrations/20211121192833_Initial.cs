@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Golumn.Core.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,12 +11,12 @@ namespace Golumn.Core.Data.Migrations
                 name: "TimeEvents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EventDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserStory = table.Column<string>(type: "TEXT", nullable: true),
-                    Length = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EventDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserStory = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Length = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

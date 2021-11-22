@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Golumn.Core.Service;
+using Microsoft.Win32;
 using Shortcut;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Golumn.Core.Windows
 {
-    public partial class MainForm : Form
+    public partial class MainForm : BaseForm
     {
         private readonly HotkeyBinder hotkeyBinder = new HotkeyBinder();
         private readonly RegistryKey registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\WinGlmCore");
@@ -157,6 +158,12 @@ namespace Golumn.Core.Windows
         private void hotkeyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
 
+        }
+
+        private void generateTimesheetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var reportService = new TimeReportService();
+            reportService.WriteTimeReportCSV();
         }
     }
 }

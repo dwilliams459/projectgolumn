@@ -23,7 +23,7 @@ namespace Golumn.Core.LogFile
 
             // Format
             dynamic parsedJson = JsonConvert.DeserializeObject(text);
-            var jsonText = JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
+            var jsonText = JsonConvert.SerializeObject(parsedJson); //, Formatting.Indented);
 
             bool newFile = false;
             if (!File.Exists(logfile))
@@ -35,16 +35,15 @@ namespace Golumn.Core.LogFile
 
             if (!newFile)
             {
-                File.AppendAllText(logfile, $",{System.Environment.NewLine}");
+                File.AppendAllText(logfile, $"{System.Environment.NewLine}");
             }
 
-            File.AppendAllText(logfile, $"{jsonText}");
+            File.AppendAllText(logfile, $"{jsonText},");
             Console.WriteLine($"Logged: {dateNow} {jsonText}");
         }
 
         public static void LogEventCSV(string description, string userStoryId = "", string length = "")
         {
-
             var dateNow = DateTime.Now.ToString("MM/dd/yy");
 
             var logfile = ConfigurationManager.AppSettings["filename"]; //  "c:/golumn/worklog.txt";
@@ -54,13 +53,12 @@ namespace Golumn.Core.LogFile
             if (!File.Exists(logfile))
             {
                 var path = Path.GetDirectoryName(logfile);
-                System.IO.Directory.CreateDirectory(logfile);
-                System.IO.File.AppendAllText(path, $"Date,UserStory,Length,Description");
+                System.IO.Directory.CreateDirectory(path);
+                System.IO.File.AppendAllText(logfile, $"Date,UserStory,Length,Description");
             }
 
             File.AppendAllText(logfile, text);
             Console.WriteLine($"Logged: {dateNow} text");
         }
-
     }
 }

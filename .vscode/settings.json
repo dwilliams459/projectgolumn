@@ -5,5 +5,17 @@
         "activityBar.background": "#2C2E31",
         "titleBar.activeBackground": "#3E4045",
         "titleBar.activeForeground": "#FAFAFA"
+    },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:Glm Timetracker Core}/Golumn.Core.Data/data/TimeEvents.db",
+            "name": "TestEvents"
+        }
+    ],
+    "sqltools.useNodeRuntime": true,
+    "files.associations": {
+        "*.yaml": "home-assistant"
     }
 }

@@ -75,6 +75,7 @@ namespace Golumn.Core.Windows
             this.txtLength.Name = "txtLength";
             this.txtLength.Size = new System.Drawing.Size(200, 29);
             this.txtLength.TabIndex = 1;
+            this.txtLength.TextChanged += new System.EventHandler(this.txtLength_TextChanged);
             this.txtLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLength_KeyPress);
             // 
             // txtUsId
@@ -86,6 +87,7 @@ namespace Golumn.Core.Windows
             this.txtUsId.Name = "txtUsId";
             this.txtUsId.Size = new System.Drawing.Size(200, 29);
             this.txtUsId.TabIndex = 0;
+            this.txtUsId.TextChanged += new System.EventHandler(this.txtUsId_TextChanged);
             this.txtUsId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsId_KeyPress);
             // 
             // LogText
