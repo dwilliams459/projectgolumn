@@ -4,6 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="CalendarEventsService.cs" />
+    <Compile Remove="PullRequestService.cs" />
+    <Compile Remove="WorkItemService.cs" />
+  </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="Dahomey.Json" Version="1.12.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.12">
@@ -19,6 +25,7 @@
     <ProjectReference Include="..\Golumn.Core.LogFile\Golumn.Core.LogFile.csproj" />
     <ProjectReference Include="..\PR.ADO.Core.Data\PR.ADO.Core.Data.csproj" />
     <ProjectReference Include="..\PR.ADO.Core.Domain\PR.ADO.Core.Domain.csproj" />
+    <ProjectReference Include="..\PR.Ado.Core.Service\PR.Ado.Core.Service.csproj" />
   </ItemGroup>
 
 </Project>

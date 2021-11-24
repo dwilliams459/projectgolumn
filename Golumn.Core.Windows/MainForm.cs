@@ -165,7 +165,7 @@ namespace Golumn.Core.Windows
             try
             {
                 var reportService = new TimeReportService();
-                var a = reportService.WriteTimeReportCSV().Result;
+                //var a = reportService.WriteTimeReportCSV().Result;
 
             }
             catch (Exception ex)

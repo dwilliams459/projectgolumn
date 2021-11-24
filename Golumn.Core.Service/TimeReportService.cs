@@ -1,7 +1,10 @@
 ﻿using Golumn.Core.Common;
 using Golumn.Core.Domain;
 using Microsoft.Extensions.Configuration;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Newtonsoft.Json;
+using PR.Ado.Core.Domain;
+using PR.Ado.Core.Service;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,11 +17,33 @@ namespace Golumn.Core.Service
 {
     public class TimeReportService : BaseService
     {
-        public async Task<bool> WriteTimeReportCSV(DateTime? startDate = null, DateTime? endDate = null)
-        {
-            startDate = (startDate ?? DateTime.Now.FirstDayOfWeek());
-            endDate = (endDate ?? DateTime.Now.LastDayOfWeek());
+        private IConfiguration _config;
 
+        public TimeReportService()
+        {
+            _config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json").Build();
+        }
+        public async Task<List<TimeEvent>> GetLogEvents()
+        {
+            var logFilePath = _config.GetValue<string>("logFilename");
+            var logText = await File.ReadAllTextAsync(logFilePath);
+
+            if (string.IsNullOrWhiteSpace(logText))
+            {
+                return new List<TimeEvent>();
+            }
+
+            logText = logText.Trim().TrimEnd(',');
+            logText = $"[ {logText} ]";
+
+            // Get Log Text Object
+            var eventList = JsonConvert.DeserializeObject<List<TimeEvent>>(logText);
+            return eventList; 
+        }
+
+        public async Task<bool> WriteTimeReportCSV(String csvText)
+        {
             try
             {
                 var logFilePath = _config.GetValue<string>("logFilename");
@@ -29,17 +54,6 @@ namespace Golumn.Core.Service
                     return true;
                 }
 
-                logText = logText.Trim().TrimEnd(',');
-                logText = $"[ {logText} ]";
-
-                // Get Log Text Object
-                var eventList = JsonConvert.DeserializeObject<List<TimeEvent>>(logText);
-
-                // Add Work Item data
-
-                // Build csv
-                await BuildCsvFile(eventList);
-
                 return true;
             }
             catch (Exception ex)
@@ -49,11 +63,28 @@ namespace Golumn.Core.Service
             }
         }
 
-        private async Task BuildCsvFile(List<TimeEvent> eventList)
+        public async Task<string> BuildCsvText(List<TimeEvent> eventList, string userName)
+        {
+            // Create directories if not exist
+
+            // Build CSV Text
+            var csvText = new StringBuilder();
+            csvText.AppendLine($"User,Date,Contract,Workstream,Task,CR,Length,Description");
+
+            // Write Body
+            foreach (var te in eventList)
+            {
+                csvText.AppendLine($"{userName},{te.EventDateFormated()},{te.Contract},{te.Workstream},,{te.CRName()},{te.Length},{te.Id} ({te.Name}) {te.Description}");
+            }
+
+            // Return text
+            return csvText.ToString();
+        }
+
+        public async Task WriteCsvToFile(string csvText)
         {
             var reportFilename = _config.GetValue<string>("reportFilename");
 
-            // Create directories if not exist
             var path = Path.GetDirectoryName(reportFilename);
             System.IO.Directory.CreateDirectory(path);
 
@@ -63,18 +94,62 @@ namespace Golumn.Core.Service
                 File.Delete(reportFilename);
             }
 
-            // Build CSV Text
-            var csvText = new StringBuilder();
-            csvText.AppendLine($"Date,UserStory,Length,Description");
+            await File.AppendAllTextAsync(reportFilename, csvText);
+        }
 
-            // Write Body
-            foreach (var te in eventList)
+        public async Task<List<TimeEvent>> GetMergedEvents(Options options, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var workItemService = new WorkItemService();
+            options.Parent = true;
+
+            // Get Event list
+            var eventList = await GetLogEvents();
+
+            // Get Work Items
+            var workItems = await workItemService.GetWorkItems(options);
+
+            // Merge events together.
+            var mergedEvents = (from ev in eventList
+                          join wi in workItems
+                          on ev.UserStory equals wi.Id
+                          select new TimeEvent { 
+                                UserId = options.CgiUsername, // "david.williams@recovery.pr",
+                                EventDate = ev.EventDate,
+                                Id = wi.Id,
+                                Name = WorkItemService.Field(wi, "System.Title"),
+                                Contract = WorkItemService.Field(wi, "Custom.Contract"),
+                                Workstream = WorkItemService.Field(wi, "Custom.Workstream"),
+                                ParentId = WorkItemService.Field(wi, "System.Parent"),
+                                Description = ev.Description,
+                                Length = ev.Length
+                          })
+                          .ToList();
+
+            // Filter by start and end dates
+            if (startDate != null)
             {
-                csvText.AppendLine($"{te.EventDateFormated()}, {te.UserStory}, {te.Length}, {te.Description} ");
+                mergedEvents = mergedEvents.Where(ev => ev.EventDate != null && ev.EventDate.Value > startDate).ToList();
             }
 
-            // Write File
-            await File.AppendAllTextAsync(reportFilename, csvText.ToString());
+            if (endDate != null)
+            {
+                mergedEvents = mergedEvents.Where(ev => ev.EventDate != null && ev.EventDate.Value < endDate).ToList();
+            }
+
+            // Add Parent (and CR)
+            if (options.Parent)
+            {
+                mergedEvents.ForEach(async me => {
+                    var wiId = me.ParentId;
+                    if (int.TryParse(wiId, out int wiIdInt))
+                    {
+                        var parentTitle = workItemService.GetParentWorkItemDescription(wiIdInt);
+                        me.Parent = parentTitle;
+                    }
+                });
+            }
+
+            return mergedEvents;
         }
     }
 }

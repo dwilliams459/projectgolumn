@@ -8,7 +8,7 @@ using CommandLine;
 using Golumn.Core.Service;
 using CommandLine.Text;
 using PR.Ado.Core.Domain;
-using PR.Recovery.Ado.Service;
+using PR.Ado.Core.Service;
 
 namespace Golumn.Core.Console
 {

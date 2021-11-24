@@ -1,5 +1,5 @@
 ﻿using PR.Ado.Core.Data;
-using PR.Recovery.Ado.Service;
+using PR.Ado.Core.Service;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
 using PR.Ado.Core.Domain;
+using Golumn.Core.Domain;
 using Golumn.Core.Service;
+using System.Text;
 
-namespace PR.Recovery.Ado.Console
+namespace PR.Ado.Core.Console
 {
     class Program
     {
-        private const string Username = "david.williams1@cgi.com";
-
         public static async Task Main(string[] args)
         {
             System.Console.WriteLine("ADO query");
@@ -40,7 +40,14 @@ namespace PR.Recovery.Ado.Console
                 }
                 else
                 {
-                    await ListWorkItems(options);
+                    if (options.CSV)
+                    {
+                        await CsvList(options);
+                    }
+                    else
+                    {
+                        await ListWorkItems(options);
+                    }
                 }
             }
             catch (Exception ex)
@@ -56,20 +63,17 @@ namespace PR.Recovery.Ado.Console
             do
             {
                 await ListPullRequests(options);
-                if (options.Repeat)
-                {
-                    Task.Delay(waitTime).Wait();
-                }
-            } while (options.Repeat);
+                Task.Delay(waitTime).Wait();
+            } while (true);
         }
 
         private static async Task ListPullRequests(Options options)
         {
             try
             {
-                var pullRequestService = new PullRequestService();
+                var pullRequestService = new PR.Ado.Core.Service.PullRequestService();
                 //var pullRequests = await pullRequestService.GetActivePullRequests(5);
-                var pullRequests = await pullRequestService.GetPullRequestsAssignedToMe("david.williams1@cgi.com", 600);
+                var pullRequests = await pullRequestService.GetPullRequestsAssignedToMe(options.PrUsername, 600);
 
                 System.Console.Clear();
 
@@ -77,7 +81,7 @@ namespace PR.Recovery.Ado.Console
                 {
                     System.Console.BackgroundColor = ConsoleColor.DarkRed;
                     System.Console.ForegroundColor = ConsoleColor.White;
-                    System.Console.WriteLine($"\rTotal active pull requrests ready for review: {pullRequests.Count} ({DateTime.Now.ToString("HH:mm:ss")}) ");
+                    System.Console.WriteLine($"\rTotal active pull requrests ready for review: {pullRequests.Count()} ({DateTime.Now.ToString("HH:mm:ss")}) ");
                 }
                 else
                 {
@@ -103,7 +107,7 @@ namespace PR.Recovery.Ado.Console
 
                     System.Console.WriteLine($"   Reviewers: {reviewers}");
 
-                    var myReview = pr.ReviewVote(Username);
+                    var myReview = pr.ReviewVote(options.CgiUsername);
                     if (myReview == null)
                     {
                         System.Console.WriteLine("   My Review: na");
@@ -144,38 +148,42 @@ namespace PR.Recovery.Ado.Console
             foreach (var wi in workItems)
             {
                 // "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.Parent"
-                var title = Field(wi, "System.Title");
-                System.Console.WriteLine($"{wi.Id} ({Field(wi, "System.Title")})");
+                var title = WorkItemService.Field(wi, "System.Title");
+                System.Console.WriteLine($"{wi.Id} ({WorkItemService.Field(wi, "System.Title")})");
                 System.Console.WriteLine($"    URL: https://prdr.visualstudio.com/PR/_workitems/edit/{wi.Id}");
-                System.Console.WriteLine($"    Type: {Field(wi, "System.WorkItemType")}, Iteration: {Field(wi, "System.IterationPath")}");
+                System.Console.WriteLine($"    Type: {WorkItemService.Field(wi, "System.WorkItemType")}, Iteration: {WorkItemService.Field(wi, "System.IterationPath")}");
 
                 if (options.Parent)
                 {
-                    var parentTitle = await workItemService.GetParentWorkItemDescription(Field(wi, "System.Parent"));
-                    System.Console.WriteLine($"    Parent: {parentTitle}");
+                    var wiId = WorkItemService.Field(wi, "System.Parent");
+                    if (int.TryParse(wiId, out int wiIdInt))
+                    {
+                        var parentTitle = workItemService.GetParentWorkItemDescription(wiIdInt);
+                        System.Console.WriteLine($"    Parent: {parentTitle}");
+                    }
                 }
-                
+
                 System.Console.Write($"    State: ");
                 System.Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine(Field(wi, "System.State"));
+                System.Console.WriteLine(WorkItemService.Field(wi, "System.State"));
                 System.Console.ResetColor();
 
-                System.Console.WriteLine($"    Contract:{Field(wi, "Custom.Contract")}, Workstream:{Field(wi, "Custom.Workstream")}");
+                System.Console.WriteLine($"    Contract:{WorkItemService.Field(wi, "Custom.Contract")}, Workstream:{WorkItemService.Field(wi, "Custom.Workstream")}");
 
                 System.Console.WriteLine("---------------------------");
             }
         }
 
-        private static string Field(Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models.WorkItem workItem, string fieldName)
+        public static async Task CsvList(Options options)
         {
-            var field = workItem.Fields.Where(f => f.Key == fieldName).FirstOrDefault();
-            if (field.Value != null)
-            {
-                return field.Value.ToString();
-            }
-            return string.Empty;
+            // Get Events
+            var timeReportService = new TimeReportService();
+            List<TimeEvent> events = await timeReportService.GetMergedEvents(options);
 
+            var csvEventText = await timeReportService.BuildCsvText(events, options.CgiUsername);
+            
+            System.Console.WriteLine(csvEventText);
+            await timeReportService.WriteCsvToFile(csvEventText);
         }
-
     }
 }

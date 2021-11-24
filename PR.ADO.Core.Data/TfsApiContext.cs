@@ -6,7 +6,7 @@ using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.Common;
 
-namespace PR.Recovery.Ado.Data
+namespace PR.Ado.Core.Data
 {
     public class TfsApiContext
     {

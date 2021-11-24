@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "PR.Recovery.Ado.Console": {
+    "PR.Ado.Core.Console": {
       "commandName": "Project",
-      "commandLineArgs": "r 5000"
+      "commandLineArgs": "-c -p"
     }
   }
 }

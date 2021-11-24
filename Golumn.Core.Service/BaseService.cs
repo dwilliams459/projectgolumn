@@ -14,7 +14,7 @@ namespace Golumn.Core.Service
             _config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json").Build();
 
-            var csvOutfilePath = _config.GetValue<string>("reportFilename");
+            var csvOutfilePath = _config.GetValue<string>("reportFilename", "c:/glm/timereport.csv");
 
             _context = new TimeEventsContext();
         }

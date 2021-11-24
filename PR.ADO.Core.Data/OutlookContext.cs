@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Outlook;
 using System.Collections;
-using PR.Recovery.Ado.Data;
+using PR.Ado.Core.Data;
 using PR.Ado.Core.Domain;
 
-namespace PR.Recovery.Ado.Data
+namespace PR.Ado.Core.Data
 {
 
 

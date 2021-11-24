@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PR.Recovery.Ado.Data
+namespace PR.Ado.Core.Data
 {
     public static class DateExtensions
     {
