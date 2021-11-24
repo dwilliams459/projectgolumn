@@ -21,83 +21,22 @@ namespace PR.Ado.Core.Service
             ctx = new TfsApiContext();
         }
 
-        public async Task<List<WorkItem>> GetWorkItems(Options options) //string searchTerm = null, string type = "")
+        public async Task<List<WorkItem>> GetWorkItemsAsync(Options options) //string searchTerm = null, string type = "")
         {
             try
             {
                 var fields = new[] { "System.Id", "System.Title", "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.IterationPath", "System.Parent" };
-                var fieldString = String.Join(",", fields);
-
-                var query = $"SELECT {fieldString} "
-                            + " FROM workitems "
-                            + " WHERE[System.TeamProject] = 'PR' AND [System.WorkItemType] <> 'Task' "
-                            + " AND NOT[System.State] IN('Cancelled', 'In Refinement') ";
-
-
-                List<string> validIterations = new List<string> { "-5", "-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4", "+5" };
-                var filterIterationByString = false;
-                if (string.IsNullOrWhiteSpace(options.Iteration))
-                {
-                    query = query + " AND ( ";
-                    query = query + "    [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') - 1 ";
-                    query = query + "    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ";
-                    query = query + "    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') + 1 ";
-                    query = query + " ) ";
-                }
-                else if (options.Iteration != null && validIterations.Contains(options.Iteration))  // [PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0> = PR\SWAT iteration
-                {
-                    if (options.Iteration == "0")
-                        query = query + $" AND [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ";
-                    else
-                        query = query + $" AND [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') {options.Iteration} ";
-                }
-                else
-                {
-                    filterIterationByString = true;
-                }
-
-                if (options.All)
-                {
-                    query += $" AND EVER [System.AssignedTo] = '{options.CgiUsername}' "; //David Williams <david.williams1@cgi.com>' ";
-                }
-                else if (!string.IsNullOrWhiteSpace(options.OneUserStory))
-                {
-                    query += $" AND [SYSTEM.Id] = {options.OneUserStory} ";
-                }
-                else
-                {
-                    query += $" AND [System.AssignedTo] = '{options.CgiUsername}' "; //David Williams <david.williams1@cgi.com>' ";
-                }
-
-                if (options.Bugs)
-                {
-                    query = query + "AND [System.WorkItemType] CONTAINS 'Bug' ";
-                }
-
-                if (options.UserStories)
-                {
-                    query = query + "AND [System.WorkItemType] CONTAINS 'User Story' ";
-                }
-
-                if (!String.IsNullOrEmpty(options.SearchText()))
-                {
-                    query = query + $"AND [System.Title] CONTAINS '{options.SearchText()}' ";
-                }
-
-                query = query + " ORDER BY [System.Id]";
-
+                bool filterIterationByString;
+                Wiql wiql;
                 // create a wiql object and build our query
-                var wiql = new Wiql()
+                wiql = new Wiql()
                 {
-                    Query = query
+                    Query = BuildQuery(options, fields, out filterIterationByString)
                 };
 
                 var workItems = await ctx.GetAdoTfsWorkItemResponse(wiql, fields).ConfigureAwait(false);
 
-                if (filterIterationByString)
-                {
-                    workItems = workItems.Where(wi => Field(wi, "System.IterationPath").Contains(options.Iteration)).ToList();
-                }
+                workItems = FilterIterationsByString(options, filterIterationByString, workItems);
 
                 return workItems;
             }
@@ -106,6 +45,81 @@ namespace PR.Ado.Core.Service
                 Console.WriteLine(ex.Message);
                 return new List<WorkItem>();
             }
+        }
+
+        private List<WorkItem> FilterIterationsByString(Options options, bool filterIterationByString, List<WorkItem> workItems)
+        {
+            if (filterIterationByString)
+            {
+                workItems = workItems.Where(wi => Field(wi, "System.IterationPath").Contains(options.Iteration)).ToList();
+            }
+
+            return workItems;
+        }
+
+        private string BuildQuery(Options options, string[] fields, out bool filterIterationByString)
+        {
+            var fieldString = String.Join(",", fields);
+
+            var query = $"SELECT {fieldString} "
+                        + " FROM workitems "
+                        + " WHERE[System.TeamProject] = 'PR' AND [System.WorkItemType] <> 'Task' "
+                        + " AND NOT[System.State] IN('Cancelled', 'In Refinement') ";
+
+
+            List<string> validIterations = new List<string> { "-5", "-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4", "+5" };
+            filterIterationByString = false;
+            if (string.IsNullOrWhiteSpace(options.Iteration))
+            {
+                query = query + " AND ( ";
+                query = query + "    [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') - 1 ";
+                query = query + "    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ";
+                query = query + "    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') + 1 ";
+                query = query + " ) ";
+            }
+            else if (options.Iteration != null && validIterations.Contains(options.Iteration))  // [PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0> = PR\SWAT iteration
+            {
+                if (options.Iteration == "0")
+                    query = query + $" AND [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ";
+                else
+                    query = query + $" AND [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') {options.Iteration} ";
+            }
+            else
+            {
+                filterIterationByString = true;
+            }
+
+            if (options.All)
+            {
+                query += $" AND EVER [System.AssignedTo] = '{options.CgiUsername}' "; //David Williams <david.williams1@cgi.com>' ";
+            }
+            else if (!string.IsNullOrWhiteSpace(options.OneUserStory))
+            {
+                query += $" AND [SYSTEM.Id] = {options.OneUserStory} ";
+            }
+            else
+            {
+                query += $" AND [System.AssignedTo] = '{options.CgiUsername}' "; //David Williams <david.williams1@cgi.com>' ";
+            }
+
+            if (options.Bugs)
+            {
+                query = query + "AND [System.WorkItemType] CONTAINS 'Bug' ";
+            }
+
+            if (options.UserStories)
+            {
+                query = query + "AND [System.WorkItemType] CONTAINS 'User Story' ";
+            }
+
+            if (!String.IsNullOrEmpty(options.SearchText()))
+            {
+                query = query + $"AND [System.Title] CONTAINS '{options.SearchText()}' ";
+            }
+
+            query = query + " ORDER BY [System.Id]";
+
+            return query;
         }
 
         public string GetParentWorkItemDescription(int? parentId = null)

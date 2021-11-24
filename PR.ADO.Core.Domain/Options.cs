@@ -13,7 +13,7 @@ namespace PR.Ado.Core.Domain
         public bool PullRequest { get; set; }
 
         [Option('s', "search")]
-        public IEnumerable<string> SearchWords { get; set; }
+        public List<string> SearchWords { get; set; }
 
         [Option('o', "search", HelpText = "Display details of a single user story")]
         public string OneUserStory { get; set; }
@@ -45,14 +45,16 @@ namespace PR.Ado.Core.Domain
         [Option(longName: "cgiuser", HelpText = "CGI username")]
         public string CgiUsername { get; set; }
 
-        
-
-
-        public string SearchText() 
+        public string SearchText()
         {
+            if (SearchWords == null || SearchWords.Count == 0 )
+            {
+                return string.Empty;
+            }
+
             return string.Join(" ", SearchWords);
         }
-
+        
         private IConfiguration _config { get; set; }
 
         public Options()

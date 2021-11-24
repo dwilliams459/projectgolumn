@@ -106,7 +106,7 @@ namespace Golumn.Core.Service
             var eventList = await GetLogEvents();
 
             // Get Work Items
-            var workItems = await workItemService.GetWorkItems(options);
+            var workItems = await workItemService.GetWorkItemsAsync(options);
 
             // Merge events together.
             var mergedEvents = (from ev in eventList
@@ -150,6 +150,17 @@ namespace Golumn.Core.Service
             }
 
             return mergedEvents;
+        }
+
+        public async Task<string> GetWorkItemsAndWriteCSVFile(Options options)
+        {
+            var timeReportService = new TimeReportService();
+            List<TimeEvent> events = await timeReportService.GetMergedEvents(options);
+
+            var csvEventText = await timeReportService.BuildCsvText(events, options.CgiUsername);
+
+            await timeReportService.WriteCsvToFile(csvEventText);
+            return csvEventText;
         }
     }
 }

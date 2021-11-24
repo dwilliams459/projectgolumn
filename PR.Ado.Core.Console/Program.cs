@@ -142,7 +142,7 @@ namespace PR.Ado.Core.Console
         {
             var workItemService = new WorkItemService();
 
-            var workItems = await workItemService.GetWorkItems(options);
+            var workItems = await workItemService.GetWorkItemsAsync(options);
 
             // Loop though work items and write to console
             foreach (var wi in workItems)
@@ -177,13 +177,12 @@ namespace PR.Ado.Core.Console
         public static async Task CsvList(Options options)
         {
             // Get Events
-            var timeReportService = new TimeReportService();
-            List<TimeEvent> events = await timeReportService.GetMergedEvents(options);
+            var timeService = new TimeReportService();
+            string csvEventText = await timeService.GetWorkItemsAndWriteCSVFile(options);
 
-            var csvEventText = await timeReportService.BuildCsvText(events, options.CgiUsername);
-            
             System.Console.WriteLine(csvEventText);
-            await timeReportService.WriteCsvToFile(csvEventText);
         }
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Golumn.Core.Service;
 using Microsoft.Win32;
+using PR.Ado.Core.Domain;
 using Shortcut;
 using System;
 using System.Collections.Generic;
@@ -32,8 +33,8 @@ namespace Golumn.Core.Windows
         public MainForm()
         {
             InitializeComponent();
-        }        
-        
+        }
+
         private void MyHide()
         {
             ShowInTaskbar = false;
@@ -160,18 +161,15 @@ namespace Golumn.Core.Windows
 
         }
 
-        private void generateTimesheetToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void generateTimesheetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var reportService = new TimeReportService();
-                //var a = reportService.WriteTimeReportCSV().Result;
+            var timeEntryReport = new TimeReportService();
+            await timeEntryReport.GetWorkItemsAndWriteCSVFile(new Options { CSV = true });
+        }
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }        
+        private async void generateTimesheetToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
