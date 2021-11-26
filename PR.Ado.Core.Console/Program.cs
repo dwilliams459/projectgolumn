@@ -11,6 +11,7 @@ using PR.Ado.Core.Domain;
 using Golumn.Core.Domain;
 using Golumn.Core.Service;
 using System.Text;
+using Golumn.Core.Data;
 
 namespace PR.Ado.Core.Console
 {
@@ -22,6 +23,9 @@ namespace PR.Ado.Core.Console
 
             try
             {
+                var tcontext = new TimeEventsContext();
+                var events = tcontext.TimeEvents.ToList();
+
                 Options options = new Options();
 
                 var result = Parser.Default.ParseArguments<Options>(args);

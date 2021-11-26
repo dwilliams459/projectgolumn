@@ -21,21 +21,39 @@ namespace Golumn.Core.Data.Migrations
 
             modelBuilder.Entity("Golumn.Core.Domain.TimeEvent", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Contract")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EventDate")
+                    b.Property<DateTime?>("EventDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Length")
+                    b.Property<decimal?>("Length")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserStory")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Parent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserStory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Workstream")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
