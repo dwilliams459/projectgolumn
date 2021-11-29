@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Golumn.Core.Domain;
 
 namespace Golumn.Core.Windows
 {
@@ -38,7 +39,7 @@ namespace Golumn.Core.Windows
             }
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private async void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Return)
             {
@@ -48,7 +49,9 @@ namespace Golumn.Core.Windows
                     {
                         var fileLog = new FileLog();
                         fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
-                        //FileLog.LogEventCSV(txtDescription.Text, txtUsId.Text, txtLength.Text);
+
+                        var timeEvents = new Golumn.Core.Service.TimeEventService();
+                        await timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);
 
                         e.Handled = true;
 
@@ -103,6 +106,27 @@ namespace Golumn.Core.Windows
                 return false;
             }
             return true;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            var fileLog = new FileLog();
+            fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
+
+            var timeEvents = new Golumn.Core.Service.TimeEventService();
+            await timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);
+
+            this.Close();
         }
     }
 }

@@ -12,6 +12,7 @@ using Golumn.Core.Domain;
 using Golumn.Core.Service;
 using System.Text;
 using Golumn.Core.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace PR.Ado.Core.Console
 {
@@ -19,12 +20,9 @@ namespace PR.Ado.Core.Console
     {
         public static async Task Main(string[] args)
         {
-            System.Console.WriteLine("ADO query");
-
             try
             {
-                var tcontext = new TimeEventsContext();
-                var events = tcontext.TimeEvents.ToList();
+                System.Console.WriteLine("ADO query");
 
                 Options options = new Options();
 
@@ -37,7 +35,11 @@ namespace PR.Ado.Core.Console
                     Environment.Exit(1);
                 });
 
-                if (options.PullRequest)
+                if (options.ListEvents)
+                {
+                    await ListEvents(options);
+                }
+                else if (options.PullRequest)
                 {
                     System.Console.WriteLine("PullRequests");
                     RunPullRequests(options);
@@ -59,6 +61,23 @@ namespace PR.Ado.Core.Console
                 System.Console.WriteLine(ex.Message);
                 System.Console.WriteLine(ex.StackTrace);
             }
+        }
+
+        private static async Task ListEvents(Options options)
+        {
+            var tcontext = new TimeEventsContext();
+            var events = tcontext.TimeEvents.Where(e => e.UserId == Environment.UserName);
+            var firstDayOfWeek = DateTime.Now.FirstDayOfWeek();
+
+            if (!options.All)
+            {
+                events = events.Where(e => e.EventDate <= firstDayOfWeek);
+            }
+
+            (await events.OrderByDescending(e => e.EventDate).ToListAsync()).ForEach(e =>
+            {
+                System.Console.WriteLine($"ID: {e.Id}, Date: {e.EventDate.ToString("MM/dd/yyyy")}, User Story: {e.UserStory}, Hours: {e.Length}, {e.Description}");
+            });
         }
 
         private static async Task RunPullRequests(Options options)

@@ -9,7 +9,7 @@ namespace Golumn.Core.Domain
     {
         [Key]
         public int? Id { get; set; }
-        public DateTime? EventDate { get; set; }
+        public DateTime EventDate { get; set; }
         public int? UserStory { get; set; }
         public decimal? Length { get; set; }
         public string Description { get; set; }
@@ -42,12 +42,7 @@ namespace Golumn.Core.Domain
 
         public string EventDateFormated()
         {
-            if (EventDate == null)
-            {
-                return string.Empty;
-            }
-
-            return EventDate == null ? null : EventDate.Value.ToString("MM/dd/yyyy");
+            return EventDate.ToString("MM/dd/yyyy");
         }
     }
 }

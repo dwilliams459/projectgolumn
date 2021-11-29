@@ -19,8 +19,7 @@ namespace Golumn.Core.Data
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json").Build();
  
-            dBPath = config.GetConnectionString("PREventTracker");    
-            //dBPath = @"F:\Projects\Sandbox\AdoGlmTimeTracker\Glm Timetracker Core\PR.Ado.Core.Console\bin\Debug\net5.0\App_Data";
+            dBPath = config.GetConnectionString("PREventTracker");            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer(dBPath);

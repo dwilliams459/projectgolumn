@@ -12,7 +12,7 @@ namespace PR.Ado.Core.Domain
         [Option('r', "pr", HelpText = "Show active pull requests")]
         public bool PullRequest { get; set; }
 
-        [Option('s', "search")]
+        // [Option('s', "search")]
         public List<string> SearchWords { get; set; }
 
         [Option('o', "search", HelpText = "Display details of a single user story")]
@@ -38,6 +38,10 @@ namespace PR.Ado.Core.Domain
 
         [Option(longName: "out", HelpText = "(not implemented) '-out filename' Print results to a file")]
         public bool Outfile { get; set; }
+
+        [Option('e', "events", HelpText = "List database events.")]
+        public bool ListEvents { get; set; }
+
 
         [Option('u', "pruser", HelpText = "PR user to run and display filters for.")]
         public string PrUsername { get; set; }

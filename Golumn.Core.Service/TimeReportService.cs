@@ -128,12 +128,12 @@ namespace Golumn.Core.Service
             // Filter by start and end dates
             if (startDate != null)
             {
-                mergedEvents = mergedEvents.Where(ev => ev.EventDate != null && ev.EventDate.Value > startDate).ToList();
+                mergedEvents = mergedEvents.Where(ev => ev.EventDate != null && ev.EventDate > startDate).ToList();
             }
 
             if (endDate != null)
             {
-                mergedEvents = mergedEvents.Where(ev => ev.EventDate != null && ev.EventDate.Value < endDate).ToList();
+                mergedEvents = mergedEvents.Where(ev => ev.EventDate != null && ev.EventDate < endDate).ToList();
             }
 
             // Add Parent (and CR)
