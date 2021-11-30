@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -14,18 +15,23 @@ namespace Golumn.Core.Windows
 {
     public partial class ViewLog : Form
     {
+        private IConfigurationRoot _config;
+
         public ViewLog()
         {
+            _config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json").Build();
+
             InitializeComponent();
 
             try
             {
-                if (!File.Exists(ConfigurationManager.AppSettings["filename"]))
+                if (!File.Exists(_config.GetValue<string>("logFilename")))
                 {
-                    File.Create(ConfigurationManager.AppSettings["filename"]);
+                    File.Create(_config.GetValue<string>("logFilename")); // ConfigurationManager.AppSettings["logFilename"]) ;
                 }
 
-                var logText = File.ReadAllText(ConfigurationManager.AppSettings["filename"]);
+                var logText = File.ReadAllText(_config.GetValue<string>("logFilename"));
                 textBox1.Text = logText;
 
                 textBox1.VisibleChanged += (sender, e) =>
@@ -62,7 +68,7 @@ namespace Golumn.Core.Windows
                     DialogResult dialogResult = MessageBox.Show("Save Log?", "Save Log", MessageBoxButtons.OKCancel);
                     if (dialogResult == DialogResult.OK)
                     {
-                        File.WriteAllText(ConfigurationManager.AppSettings["filename"], textBox1.Text);
+                        File.WriteAllText(_config.GetValue<string>("logFilename"), textBox1.Text);
                     }
                 }
             }

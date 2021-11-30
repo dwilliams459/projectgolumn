@@ -48,7 +48,7 @@ namespace Golumn.Core.Windows
                     try
                     {
                         var fileLog = new FileLog();
-                        fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
+                        await fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
 
                         var timeEvents = new Golumn.Core.Service.TimeEventService();
                         await timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);
@@ -121,7 +121,7 @@ namespace Golumn.Core.Windows
         private async void btnSave_Click(object sender, EventArgs e)
         {
             var fileLog = new FileLog();
-            fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
+            await fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
 
             var timeEvents = new Golumn.Core.Service.TimeEventService();
             await timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);

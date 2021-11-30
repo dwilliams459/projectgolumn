@@ -76,8 +76,15 @@ namespace Golumn.Core.Windows
 
         public async void ShowLogText()
         {
-            var logForm = new LogText();
-            logForm.ShowDialog();
+            try
+            {
+                var logForm = new LogText();
+                logForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception sshowing log: " + ex.Message);
+            }
         }
 
         private void icon_MouseClick(object sender, MouseEventArgs e)

@@ -23,8 +23,14 @@ namespace Golumn.Core.LogFile
             var csvOutfilePath = _config.GetValue<string>("logFilename");
         }
 
-        public void LogEvent(string description, string userStoryId = "", string length = "")
+        public async Task LogEvent(string description, string userStoryId = "", string length = "")
         {
+
+            if (_config.GetValue<string>("logFormat") == "csv")
+            {
+                await LogEventCSV(description, userStoryId, length);
+                return;
+            }
 
             var dateNow = DateTime.Now.ToString("MM/dd/yy");
 
@@ -47,29 +53,29 @@ namespace Golumn.Core.LogFile
 
             if (!newFile)
             {
-                File.AppendAllText(logfile, $"{System.Environment.NewLine}");
+                await File.AppendAllTextAsync(logfile, $"{System.Environment.NewLine}");
             }
 
-            File.AppendAllText(logfile, $"{text},");
+            await File.AppendAllTextAsync(logfile, $"{text},");
             Console.WriteLine($"Logged: {dateNow} {text}");
         }
 
-        public void LogEventCSV(string description, string userStoryId = "", string length = "")
+        public async Task LogEventCSV(string description, string userStoryId = "", string length = "")
         {
             var dateNow = DateTime.Now.ToString("MM/dd/yy");
 
             var logfile = _config.GetValue<string>("logFilename");
 
-            var text = $"{dateNow}, {userStoryId}, {length}, {description}{System.Environment.NewLine}";
+            var text = $"{dateNow},{userStoryId},{length},{description}{System.Environment.NewLine}";
 
             if (!File.Exists(logfile))
             {
                 var path = Path.GetDirectoryName(logfile);
                 System.IO.Directory.CreateDirectory(path);
-                System.IO.File.AppendAllText(logfile, $"Date,UserStory,Length,Description");
+                await System.IO.File.AppendAllTextAsync(logfile, $"Date,UserStory,Length,Description");
             }
 
-            File.AppendAllText(logfile, text);
+            await File.AppendAllTextAsync(logfile, text);
             Console.WriteLine($"Logged: {dateNow} text");
         }
     }

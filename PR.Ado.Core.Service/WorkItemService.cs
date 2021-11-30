@@ -112,9 +112,9 @@ namespace PR.Ado.Core.Service
                 query = query + "AND [System.WorkItemType] CONTAINS 'User Story' ";
             }
 
-            if (!String.IsNullOrEmpty(options.SearchText()))
+            if (!String.IsNullOrEmpty(options.SearchText))
             {
-                query = query + $"AND [System.Title] CONTAINS '{options.SearchText()}' ";
+                query = query + $"AND [System.Title] CONTAINS '{options.SearchText}' ";
             }
 
             query = query + " ORDER BY [System.Id]";

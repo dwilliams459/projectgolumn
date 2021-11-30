@@ -8,7 +8,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/PR.Ado.Core.Console/bin/Debug/net5.0/ado.dll",
-            "args": [ "-e" ],
+            "args": [ "-s", "SSO" ],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"
