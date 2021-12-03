@@ -6,9 +6,9 @@
             "name": "PR.Ado.Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "buildado",
             "program": "${workspaceFolder}/PR.Ado.Core.Console/bin/Debug/net5.0/ado.dll",
-            "args": [ "-s", "SSO" ],
+            "args": [ "-c" ],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"

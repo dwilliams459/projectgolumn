@@ -47,6 +47,30 @@ namespace PR.Ado.Core.Service
             }
         }
 
+        public async Task<List<WorkItem>> GetCsvWorkItemsAsync(Options options) //string searchTerm = null, string type = "")
+        {
+            try
+            {
+                var fields = new[] { "System.Id", "System.Title", "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.IterationPath", "System.Parent" };
+
+                Wiql wiql;
+                // create a wiql object and build our query
+                wiql = new Wiql()
+                {
+                    Query = BuildCsvQuery(options, fields)
+                };
+
+                var workItems = await ctx.GetAdoTfsWorkItemResponse(wiql, fields).ConfigureAwait(false);
+
+                return workItems;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<WorkItem>();
+            }
+        }
+
         private List<WorkItem> FilterIterationsByString(Options options, bool filterIterationByString, List<WorkItem> workItems)
         {
             if (filterIterationByString)
@@ -61,65 +85,104 @@ namespace PR.Ado.Core.Service
         {
             var fieldString = String.Join(",", fields);
 
-            var query = $"SELECT {fieldString} "
-                        + " FROM workitems "
-                        + " WHERE[System.TeamProject] = 'PR' AND [System.WorkItemType] <> 'Task' "
-                        + " AND NOT[System.State] IN('Cancelled', 'In Refinement') ";
+            var query = new StringBuilder();
+
+            query.Append($"SELECT {fieldString}");
+            query.Append(" FROM workitems ");
+            query.Append(" WHERE [System.TeamProject] = 'PR' ");
+
+            if (!string.IsNullOrWhiteSpace(options.OneUserStory))
+            {
+                filterIterationByString = false;
+                query.Append($" AND [System.Id] = {options.OneUserStory} ");
+                return query.ToString();
+            }
+
+            query.Append(" AND [System.WorkItemType] <> 'Task' ");
+            query.Append(" AND NOT[System.State] IN('Cancelled', 'In Refinement') ");
 
 
             List<string> validIterations = new List<string> { "-5", "-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4", "+5" };
             filterIterationByString = false;
             if (string.IsNullOrWhiteSpace(options.Iteration))
             {
-                query = query + " AND ( ";
-                query = query + "    [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') - 1 ";
-                query = query + "    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ";
-                query = query + "    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') + 1 ";
-                query = query + " ) ";
+                query.Append(" AND ( ");
+                query.Append("    [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') - 1 ");
+                query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ");
+                query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') + 1 ");
+                query.Append(" ) ");
             }
             else if (options.Iteration != null && validIterations.Contains(options.Iteration))  // [PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0> = PR\SWAT iteration
             {
                 if (options.Iteration == "0")
-                    query = query + $" AND [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ";
+                {
+                    query.Append($" AND [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ");
+                }
                 else
-                    query = query + $" AND [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') {options.Iteration} ";
+                {
+                    query.Append($" AND [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') {options.Iteration} ");
+                }
             }
             else
             {
                 filterIterationByString = true;
             }
 
+
             if (options.All)
             {
-                query += $" AND EVER [System.AssignedTo] = '{options.CgiUsername}' "; //David Williams <david.williams1@cgi.com>' ";
-            }
-            else if (!string.IsNullOrWhiteSpace(options.OneUserStory))
-            {
-                query += $" AND [SYSTEM.Id] = {options.OneUserStory} ";
+                query.Append($" AND EVER [System.AssignedTo] = '{options.CgiUsername}' "); //David Williams <david.williams1@cgi.com>' ";
             }
             else
             {
-                query += $" AND [System.AssignedTo] = '{options.CgiUsername}' "; //David Williams <david.williams1@cgi.com>' ";
+                query.Append($" AND [System.AssignedTo] = '{options.CgiUsername}' "); //David Williams <david.williams1@cgi.com>' ";
             }
 
             if (options.Bugs)
             {
-                query = query + "AND [System.WorkItemType] CONTAINS 'Bug' ";
+                query.Append("AND [System.WorkItemType] CONTAINS 'Bug' ");
             }
 
             if (options.UserStories)
             {
-                query = query + "AND [System.WorkItemType] CONTAINS 'User Story' ";
+                query.Append("AND [System.WorkItemType] CONTAINS 'User Story' ");
             }
 
             if (!String.IsNullOrEmpty(options.SearchText))
             {
-                query = query + $"AND [System.Title] CONTAINS '{options.SearchText}' ";
+                query.Append($"AND [System.Title] CONTAINS '{options.SearchText}' ");
             }
 
-            query = query + " ORDER BY [System.Id]";
+            query.Append(" ORDER BY [System.Id]");
 
-            return query;
+            return query.ToString();
+        }
+        private string BuildCsvQuery(Options options, string[] fields)
+        {
+            var fieldString = String.Join(",", fields);
+
+            var query = new StringBuilder();
+
+            query.Append($"SELECT {fieldString}");
+            query.Append(" FROM workitems ");
+            query.Append(" WHERE [System.TeamProject] = 'PR' ");
+
+            query.Append(" AND [System.WorkItemType] <> 'Task' ");
+            query.Append(" AND NOT[System.State] IN('Cancelled', 'In Refinement') ");
+            query.Append($" AND EVER [System.AssignedTo] = '{options.CgiUsername}' "); //David Williams <david.williams1@cgi.com>' ";
+
+            query.Append(" AND ( ");
+            query.Append("    [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') - 1 ");
+            query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') - 2  ");
+            query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') -3 ");
+            query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') -4 ");
+            query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') -5 ");
+            query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') ");
+            query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') + 1 ");
+            query.Append("    OR [System.IterationPath] = @currentIteration('[PR]\\SWAT <id:a4ce66e4-33d8-425d-ba93-132fe7047da0>') + 2 ");
+            query.Append(" ) ");
+
+            return query.ToString();
         }
 
         public string GetParentWorkItemDescription(int? parentId = null)

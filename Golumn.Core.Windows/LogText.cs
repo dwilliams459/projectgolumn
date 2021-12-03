@@ -43,31 +43,15 @@ namespace Golumn.Core.Windows
         {
             if (e.KeyChar == (char)Keys.Return)
             {
-               if (Validate())
+                if (Validate())
                 {
-                    try
-                    {
-                        var fileLog = new FileLog();
-                        await fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
+                    await SaveEvent();
 
-                        var timeEvents = new Golumn.Core.Service.TimeEventService();
-                        await timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);
+                    e.Handled = true;
 
-                        e.Handled = true;
-
-                        this.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        var text = txtDescription.Text;
-
-                        var dateNow = DateTime.Now.ToString("MM/dd/yy HH:mm");
-                        Console.WriteLine($"{dateNow}, {ex.Message}");
-
-                        txtDescription.Text = "";
-                    }
+                    this.Close();
                 }
-                
+
             }
             else if (e.KeyChar == (char)Keys.Escape)
             {
@@ -75,6 +59,27 @@ namespace Golumn.Core.Windows
                 this.Close();
             }
 
+        }
+
+        private async Task SaveEvent()
+        {
+            try
+            {
+                var fileLog = new FileLog();
+                await fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
+
+                var timeEvents = new Golumn.Core.Service.TimeEventService();
+                timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);
+            }
+            catch (Exception ex)
+            {
+                var text = txtDescription.Text;
+
+                var dateNow = DateTime.Now.ToString("MM/dd/yy HH:mm");
+                Console.WriteLine($"{dateNow}, {ex.Message}");
+
+                txtDescription.Text = "";
+            }
         }
 
         private void txtUsId_TextChanged(object sender, EventArgs e)
@@ -120,12 +125,7 @@ namespace Golumn.Core.Windows
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            var fileLog = new FileLog();
-            await fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
-
-            var timeEvents = new Golumn.Core.Service.TimeEventService();
-            await timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);
-
+            await SaveEvent();
             this.Close();
         }
     }

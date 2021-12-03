@@ -74,7 +74,8 @@ namespace Golumn.Core.Service
             // Write Body
             foreach (var te in eventList)
             {
-                csvText.AppendLine($"{userName},{te.EventDateFormated()},{te.Contract},{te.Workstream},,{te.CRName()},{te.Length},{te.Id} ({te.Name}) {te.Description}");
+                var idName = (te.Id != null && te.Id.Value > 0) ? $"{te.Id} ({te.Name}) " : string.Empty;
+                csvText.AppendLine($"{userName},{te.EventDateFormated()},US Mainland,{te.Contract},{te.Workstream},Development,{te.CRName()},,{te.Length},{idName}{te.Description}");
             }
 
             // Return text
@@ -106,20 +107,26 @@ namespace Golumn.Core.Service
             var eventList = await GetLogEvents();
 
             // Get Work Items
-            var workItems = await workItemService.GetWorkItemsAsync(options);
+            Options csvOptions = new Options {
+                All = true,
+                Parent = true,
+                CgiUsername = options.CgiUsername
+            };
+
+            var workItems = await workItemService.GetCsvWorkItemsAsync(csvOptions);
 
             // Merge events together.
             var mergedEvents = (from ev in eventList
-                          join wi in workItems
-                          on ev.UserStory equals wi.Id
+                          join wi in workItems on ev.UserStory equals wi.Id into we
+                          from ljWorkItems in we.DefaultIfEmpty()
                           select new TimeEvent { 
                                 UserId = options.CgiUsername, // "david.williams@recovery.pr",
                                 EventDate = ev.EventDate,
-                                Id = wi.Id,
-                                Name = WorkItemService.Field(wi, "System.Title"),
-                                Contract = WorkItemService.Field(wi, "Custom.Contract"),
-                                Workstream = WorkItemService.Field(wi, "Custom.Workstream"),
-                                ParentId = WorkItemService.Field(wi, "System.Parent"),
+                                Id = ljWorkItems?.Id,
+                                Name =  (ljWorkItems == null) ? string.Empty : WorkItemService.Field(ljWorkItems, "System.Title"),
+                                Contract = (ljWorkItems == null) ? string.Empty : WorkItemService.Field(ljWorkItems, "Custom.Contract"),
+                                Workstream = (ljWorkItems == null) ? string.Empty : WorkItemService.Field(ljWorkItems, "Custom.Workstream"),
+                                ParentId = (ljWorkItems == null) ? string.Empty : WorkItemService.Field(ljWorkItems, "System.Parent"),
                                 Description = ev.Description,
                                 Length = ev.Length
                           })

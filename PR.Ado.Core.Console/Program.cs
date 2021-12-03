@@ -172,7 +172,12 @@ namespace PR.Ado.Core.Console
             {
                 // "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.Parent"
                 var title = WorkItemService.Field(wi, "System.Title");
-                System.Console.WriteLine($"{wi.Id} ({WorkItemService.Field(wi, "System.Title")})");
+                System.Console.Write($"{wi.Id} (");
+                
+                System.Console.ForegroundColor = ConsoleColor.Cyan;
+                System.Console.WriteLine($"{WorkItemService.Field(wi, "System.Title")})");
+                System.Console.ResetColor();
+
                 System.Console.WriteLine($"    URL: https://prdr.visualstudio.com/PR/_workitems/edit/{wi.Id}");
                 System.Console.WriteLine($"    Type: {WorkItemService.Field(wi, "System.WorkItemType")}, Iteration: {WorkItemService.Field(wi, "System.IterationPath")}");
 
