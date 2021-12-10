@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PR.Ado.Core.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "-e"
+    }
+  }
+}
