@@ -8,7 +8,7 @@
             "request": "launch",
             "preLaunchTask": "buildado",
             "program": "${workspaceFolder}/PR.Ado.Core.Console/bin/Debug/net5.0/ado.dll",
-            "args": [ "-c" ],
+            "args": [ "-u" ],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"
