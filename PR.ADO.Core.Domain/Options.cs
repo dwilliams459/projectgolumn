@@ -43,7 +43,7 @@ namespace PR.Ado.Core.Domain
         public bool ListEvents { get; set; }
 
 
-        [Option('u', "pruser", HelpText = "PR user to run and display filters for.")]
+        [Option(longName: "pruser", HelpText = "PR user to run and display filters for.")]
         public string PrUsername { get; set; }
 
         [Option(longName: "cgiuser", HelpText = "CGI username")]

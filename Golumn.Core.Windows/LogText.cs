@@ -58,7 +58,6 @@ namespace Golumn.Core.Windows
                 e.Handled = true;
                 this.Close();
             }
-
         }
 
         private async Task SaveEvent()
@@ -69,7 +68,7 @@ namespace Golumn.Core.Windows
                 await fileLog.LogEvent(txtDescription.Text, txtUsId.Text, txtLength.Text);
 
                 var timeEvents = new Golumn.Core.Service.TimeEventService();
-                timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);
+                await timeEvents.AddEvent(txtLength.Text, txtDescription.Text, txtUsId.Text, Environment.UserName);
             }
             catch (Exception ex)
             {
