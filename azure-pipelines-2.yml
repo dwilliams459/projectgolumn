@@ -24,7 +24,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'Glm Timetracker Core\Golumn.Core.Windows.csproj'
+    projects: 'Golumn.Core.Windows.csproj'
 
 - task: VSTest@2
   inputs:
