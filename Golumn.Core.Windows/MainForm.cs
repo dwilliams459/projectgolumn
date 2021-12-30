@@ -83,7 +83,7 @@ namespace Golumn.Core.Windows
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception sshowing log: " + ex.Message);
+                Console.WriteLine("Exception showing log: " + ex.Message);
             }
         }
 

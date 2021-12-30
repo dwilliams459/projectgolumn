@@ -47,6 +47,50 @@ namespace PR.Ado.Core.Service
             }
         }
 
+        public async Task<List<WorkItem>> GetAllCurrentWorkItems(int startWorkItemId = 9000, int endWorkItemId = 10000)
+        {
+            try
+            {
+                var totalWorkItems = new List<WorkItem>();
+
+                var fields = new[] { "System.Id", "System.Title", "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.IterationPath", "System.Parent" };
+                var fieldString = String.Join(",", fields);
+
+                var iterationSize = 5;
+                for (int i = 0; i < 20 && (startWorkItemId + ((i * iterationSize))) <= endWorkItemId; i++)
+                {
+                    var query = new StringBuilder();
+
+                    query.Append($"SELECT {fieldString}");
+                    query.Append(" FROM workitems ");
+                    query.Append(" WHERE [System.TeamProject] = 'PR' ");
+
+                    var firstWorkItemId = (startWorkItemId + (i * iterationSize));
+                    query.Append($" AND [System.ID] >= {firstWorkItemId} ");
+
+                    var lastWorkItemId = Math.Min((startWorkItemId + ((i + 1) * iterationSize)), endWorkItemId + 1);
+                    query.Append($" AND [System.ID] < {lastWorkItemId} ");
+
+                    // create a wiql object and build our query
+                    var workItemQuery = new Wiql()
+                    {
+                        Query = query.ToString()
+                    };
+
+                    var workItems = await ctx.GetAdoTfsWorkItemResponse(workItemQuery, fields).ConfigureAwait(false);
+
+                    totalWorkItems.AddRange(workItems);
+                }
+
+                return totalWorkItems;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<WorkItem>();
+            }
+        }
+
         public async Task<List<WorkItem>> GetCsvWorkItemsAsync(Options options) //string searchTerm = null, string type = "")
         {
             try
@@ -271,7 +315,7 @@ namespace PR.Ado.Core.Service
 
         public async Task<List<WorkItem>> GetWorkItemTasks(string workItem)
         {
-            var fields = new[] { "System.Id", "System.Title", "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.IterationPath", "System.Parent" };
+            var fields = new[] { "System.Id", "System.Title", "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.IterationPath", "System.Parent", "System.ChangedDate" };
             var fieldString = String.Join(",", fields);
             return null;
 
@@ -295,5 +339,50 @@ namespace PR.Ado.Core.Service
             }
             return string.Empty;
         }
+
+        public static DateTime? FieldDateTime(Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models.WorkItem workItem, string fieldName)
+        {
+            var fieldValue = Field(workItem, fieldName);
+            if (fieldValue != null)
+            {
+                if (DateTime.TryParse(fieldValue, out DateTime fieldDateTime))
+                {
+                    return fieldDateTime;
+                }
+            }
+
+            return null;
+        }
+
+        public static int? FieldInt(Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models.WorkItem workItem, string fieldName)
+        {
+            var fieldValue = Field(workItem, fieldName);
+            if (fieldValue != null)
+            {
+                if (int.TryParse(fieldValue, out int fieldInt))
+                {
+                    return fieldInt;
+                }
+            }
+
+            return null;
+        }
+
+        public static decimal? FieldDateDecimal(Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models.WorkItem workItem, string fieldName)
+        {
+            var fieldValue = Field(workItem, fieldName);
+            if (fieldValue != null)
+            {
+                if (decimal.TryParse(fieldValue, out decimal fieldDecimal))
+                {
+                    return fieldDecimal;
+                }
+            }
+
+            return null;
+        }
+
+
+
     }
 }

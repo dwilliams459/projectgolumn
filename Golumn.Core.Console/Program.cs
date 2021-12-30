@@ -9,6 +9,7 @@ using Golumn.Core.Service;
 using CommandLine.Text;
 using PR.Ado.Core.Domain;
 using PR.Ado.Core.Service;
+using Golumn.Core.Domain;
 
 namespace Golumn.Core.Console
 {
@@ -18,11 +19,34 @@ namespace Golumn.Core.Console
 
         public static async Task Main(string[] args)
         {
-            System.Console.WriteLine("Glm Console");
+            try 
+            {
+                GlmOptions options = new GlmOptions();
 
+                var result = Parser.Default.ParseArguments<GlmOptions>(args);
+                result.WithParsed(o =>
+                {
+                    options = o;
+                }).WithNotParsed(o =>
+                {
+                    Environment.Exit(1);
+                });
 
+                if (options.Sync)
+                {
+                    var eventService = new TimeEventService();
+
+                    var RunTime = System.DateTime.Now;
+                    var updated = await eventService.PopulateAdoEvents(options.FirstWorkItemId, options.LastWorkItem);
+                    var totalRunTime = DateTime.Now - RunTime;
+
+                    System.Console.WriteLine($"Upadated {updated} work items in {totalRunTime.TotalSeconds} seconds ({totalRunTime.TotalMilliseconds} miliseconds)");
+                }                
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.Message);
+            }
         }
-
-
     }
 }

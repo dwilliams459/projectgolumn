@@ -1,7 +1,17 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "name": "Glm Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildglm",
+            "program": "${workspaceFolder}/Golumn.Core.Console/bin/Debug/net5.0/glm.dll",
+            "args": [ "-s", "-f", "100000", "-l", "100020" ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
         {
             "name": "PR.Ado.Core Launch (console)",
             "type": "coreclr",

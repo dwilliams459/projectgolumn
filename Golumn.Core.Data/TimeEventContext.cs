@@ -11,6 +11,7 @@ namespace Golumn.Core.Data
     public class TimeEventsContext : DbContext
     {
         public DbSet<TimeEvent> TimeEvents { get; set; }
+        public DbSet<AdoWorkItem> AdoWorkItems { get; set; }
 
         private readonly string dBPath; 
 

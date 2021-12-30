@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Golumn.Core.Common\Golumn.Core.Common.csproj" />
     <ProjectReference Include="..\PR.ADO.Core.Data\PR.ADO.Core.Data.csproj" />
     <ProjectReference Include="..\PR.ADO.Core.Domain\PR.ADO.Core.Domain.csproj" />
     <ProjectReference Include="..\PR.Ado.Core.Data\PR.Ado.Core.Data.csproj" />
