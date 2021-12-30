@@ -56,8 +56,8 @@ namespace PR.Ado.Core.Service
                 var fields = new[] { "System.Id", "System.Title", "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.IterationPath", "System.Parent" };
                 var fieldString = String.Join(",", fields);
 
-                var iterationSize = 5;
-                for (int i = 0; i < 20 && (startWorkItemId + ((i * iterationSize))) <= endWorkItemId; i++)
+                var iterationSize = 101;
+                for (int i = 0; i < 100 && (startWorkItemId + ((i * iterationSize))) <= endWorkItemId; i++)
                 {
                     var query = new StringBuilder();
 
@@ -80,6 +80,7 @@ namespace PR.Ado.Core.Service
                     var workItems = await ctx.GetAdoTfsWorkItemResponse(workItemQuery, fields).ConfigureAwait(false);
 
                     totalWorkItems.AddRange(workItems);
+                    //Console.WriteLine($"Retrieved {workItems.Count} workItems");
                 }
 
                 return totalWorkItems;

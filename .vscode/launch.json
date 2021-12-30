@@ -7,7 +7,7 @@
             "request": "launch",
             "preLaunchTask": "buildglm",
             "program": "${workspaceFolder}/Golumn.Core.Console/bin/Debug/net5.0/glm.dll",
-            "args": [ "-s", "-f", "100000", "-l", "100020" ],
+            "args": [ "-s", "-f", "90000", "-l", "110000" ],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"

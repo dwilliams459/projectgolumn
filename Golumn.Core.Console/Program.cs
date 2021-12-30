@@ -40,12 +40,17 @@ namespace Golumn.Core.Console
                     var updated = await eventService.PopulateAdoEvents(options.FirstWorkItemId, options.LastWorkItem);
                     var totalRunTime = DateTime.Now - RunTime;
 
-                    System.Console.WriteLine($"Upadated {updated} work items in {totalRunTime.TotalSeconds} seconds ({totalRunTime.TotalMilliseconds} miliseconds)");
+                    System.Console.WriteLine($"Upadated {updated} work items in {totalRunTime.TotalSeconds} seconds");
                 }                
             }
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    var inner = ex.InnerException;
+                    System.Console.WriteLine("Inner Exception: " + ex.InnerException);
+                }
             }
         }
     }

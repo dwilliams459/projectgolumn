@@ -50,26 +50,40 @@ namespace Golumn.Core.Service
         public async Task<int> PopulateAdoEvents(int? startWorkItemId = 110000, int? endWorkItemId = 110005)
         {
             var wiService = new WorkItemService();
-            var workItems = await wiService.GetAllCurrentWorkItems(startWorkItemId.Value, endWorkItemId.Value);
+            var totalChanged = 0;
 
-            var adoWorkItems = new List<AdoWorkItem>();
-
-            var dbWorkItems = await _eventContext.AdoWorkItems.Where(wi => wi.WorkItemId >= startWorkItemId && wi.WorkItemId <= endWorkItemId)
-                                                        .Select(wi => wi.WorkItemId).ToListAsync();
-
-            _eventContext.AdoWorkItems.RemoveRange(_eventContext.AdoWorkItems.Where(wi => dbWorkItems.Contains(wi.WorkItemId)));
-            var removed = await _eventContext.SaveChangesAsync();
-
-            foreach (var wi in workItems)
+            var iterationSize = 100;
+            for (int i = 0; i < 100 && (startWorkItemId.Value + ((i * iterationSize))) <= endWorkItemId; i++)
             {
-                var adoWorkItem = MapWorkItem(wi);
-                if (adoWorkItems != null)
-                {
-                    _eventContext.AdoWorkItems.Add(adoWorkItem);
-                }
-            }            
+                var firstWorkItemId = (startWorkItemId.Value + (i * iterationSize));
+                var lastWorkItemId = Math.Min((startWorkItemId.Value + ((i + 1) * iterationSize)), endWorkItemId.Value + 1);
 
-            return await _eventContext.SaveChangesAsync();
+                var workItems = await wiService.GetAllCurrentWorkItems(firstWorkItemId, lastWorkItemId);
+
+                var adoWorkItems = new List<AdoWorkItem>();
+
+                var dbWorkItems = await _eventContext.AdoWorkItems.Where(wi => wi.WorkItemId >= firstWorkItemId && wi.WorkItemId <= lastWorkItemId)
+                                                            .Select(wi => wi.WorkItemId).ToListAsync();
+
+                _eventContext.AdoWorkItems.RemoveRange(_eventContext.AdoWorkItems.Where(wi => dbWorkItems.Contains(wi.WorkItemId)));
+                var removed = await _eventContext.SaveChangesAsync();
+
+                foreach (var wi in workItems)
+                {
+                    var adoWorkItem = MapWorkItem(wi);
+                    if (adoWorkItems != null)
+                    {
+                        _eventContext.AdoWorkItems.Add(adoWorkItem);
+                    }
+                }
+
+                var changed = await _eventContext.SaveChangesAsync();
+                Console.WriteLine($"Updated {changed}");
+                totalChanged += changed;
+            }
+
+            Console.WriteLine($"Added/updated total of {totalChanged} records");
+            return totalChanged;
         }
 
         public static AdoWorkItem MapWorkItem(WorkItem workItem)
