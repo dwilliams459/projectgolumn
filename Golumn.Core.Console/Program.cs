@@ -28,13 +28,14 @@ namespace Golumn.Core.Console
                 {
                     options = o;
                 }).WithNotParsed(o =>
-                {
+                { 
                     Environment.Exit(1);
                 });
 
-                if (options.Sync)
+                if (options.Sync != null && options.Sync.Length > 0)
                 {
                     var eventService = new TimeEventService();
+                    System.Console.WriteLine($"Begining population of workitems from {options.FirstWorkItemId} to {options.LastWorkItem}");
 
                     var RunTime = System.DateTime.Now;
                     var updated = await eventService.PopulateAdoEvents(options.FirstWorkItemId, options.LastWorkItem);

@@ -7,7 +7,7 @@
             "request": "launch",
             "preLaunchTask": "buildglm",
             "program": "${workspaceFolder}/Golumn.Core.Console/bin/Debug/net5.0/glm.dll",
-            "args": [ "-s", "-f", "90000", "-l", "110000" ],
+            "args": [ "-s", "100000", "100100" ],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"
@@ -18,7 +18,7 @@
             "request": "launch",
             "preLaunchTask": "buildado",
             "program": "${workspaceFolder}/PR.Ado.Core.Console/bin/Debug/net5.0/ado.dll",
-            "args": [ "-u" ],
+            "args": [ "-s", "Manage", "-a" ],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"

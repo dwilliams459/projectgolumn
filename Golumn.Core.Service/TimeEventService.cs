@@ -53,7 +53,7 @@ namespace Golumn.Core.Service
             var totalChanged = 0;
 
             var iterationSize = 100;
-            for (int i = 0; i < 100 && (startWorkItemId.Value + ((i * iterationSize))) <= endWorkItemId; i++)
+            for (int i = 0; i < 10000 && (startWorkItemId.Value + ((i * iterationSize))) <= endWorkItemId; i++)
             {
                 var firstWorkItemId = (startWorkItemId.Value + (i * iterationSize));
                 var lastWorkItemId = Math.Min((startWorkItemId.Value + ((i + 1) * iterationSize)), endWorkItemId.Value + 1);
@@ -100,12 +100,13 @@ namespace Golumn.Core.Service
 
             try
             {
+                var assignedUser = WorkItemService.FieldUser(workItem, "System.AssignedTo");
                 var AdoWorkItem = new AdoWorkItem()
                 {
                     WorkItemId = workItem.Id ?? 0,
-                    Title = WorkItemService.Field(workItem, "System.Title"),
+                    Title = WorkItemService.Field(workItem, "System.Title"), 
                     WorkItemType = WorkItemService.Field(workItem, "System.WorkItemType"),
-                    AssignedTo = WorkItemService.Field(workItem, "System.AssignedTo"),
+                    AssignedTo = (assignedUser == null) ? string.Empty : assignedUser.UniqueName,
                     State = WorkItemService.Field(workItem, "System.State"),
                     Contract = WorkItemService.Field(workItem, "Custom.Contract"),
                     Workstream = WorkItemService.Field(workItem, "Custom.Workstream"),

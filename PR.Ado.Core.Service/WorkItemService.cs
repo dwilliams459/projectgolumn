@@ -26,12 +26,14 @@ namespace PR.Ado.Core.Service
             try
             {
                 var fields = new[] { "System.Id", "System.Title", "System.WorkItemType", "System.AssignedTo", "System.State", "Custom.Contract", "Custom.Workstream", "System.IterationPath", "System.Parent" };
-                bool filterIterationByString;
+                bool filterIterationByString = false;
                 Wiql wiql;
                 // create a wiql object and build our query
                 wiql = new Wiql()
                 {
-                    Query = BuildQuery(options, fields, out filterIterationByString)
+                    //Query = "SELECT System.Id,System.Title FROM workitems  WHERE [System.TeamProject] = 'PR'  AND [System.WorkItemType] <> 'Task' AND [System.Title] CONTAINS 'Manage'  ORDER BY [System.Id]" // BuildQuery(options, fields, out filterIterationByString)
+                    //Query = " SELECT System.Id,System.Title,System.WorkItemType,System.AssignedTo,System.State,Custom.Contract,Custom.Workstream,System.IterationPath,System.Parent FROM workitems  WHERE [System.TeamProject] = 'PR'   AND [System.Title] CONTAINS 'Manage' "
+                    Query = " SELECT [System.Id], [System.Title] FROM workitems WHERE [System.TeamProject] = 'PR' AND system.Title CONTAINS 'Manage' "
                 };
 
                 var workItems = await ctx.GetAdoTfsWorkItemResponse(wiql, fields).ConfigureAwait(false);
@@ -339,6 +341,17 @@ namespace PR.Ado.Core.Service
                 return field.Value.ToString();
             }
             return string.Empty;
+        }
+
+        public static Microsoft.VisualStudio.Services.WebApi.IdentityRef FieldUser(Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models.WorkItem workItem, 
+            string fieldName = "System.AssignedTo")
+        {
+            var field = workItem.Fields.Where(f => f.Key == fieldName).FirstOrDefault();
+            if (field.Value != null)
+            {
+                return (Microsoft.VisualStudio.Services.WebApi.IdentityRef) field.Value;
+            }
+            return null;
         }
 
         public static DateTime? FieldDateTime(Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models.WorkItem workItem, string fieldName)

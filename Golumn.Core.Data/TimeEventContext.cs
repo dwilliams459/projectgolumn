@@ -20,7 +20,7 @@ namespace Golumn.Core.Data
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json").Build();
  
-            dBPath = config.GetConnectionString("PREventTracker");            
+            dBPath = config.GetConnectionString("MetastormDB"); // PREventTracker");            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer(dBPath);

@@ -10,7 +10,7 @@ namespace Golumn.Core.Domain
     public class GlmOptions
     {
         [Option('s', "sync", HelpText = "Sync")]
-        public bool Sync { get; set; }
+        public string[] Sync { get; set; }
 
         [Option('f', "first", HelpText = "Lowest/start Work Item")]
         public int? FirstWorkItemId { get; set; }
