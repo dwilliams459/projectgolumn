@@ -11,5 +11,5 @@
     },
     "BaseUri": "https://dev.azure.com/prdr",
     "defaultPrUsername": "david.williams@recovery.pr",
-    "defaultCgiUsername": "david.williams1@cgi.com",
+    "defaultCgiUsername": "david.williams1@cgi.com"
 }
