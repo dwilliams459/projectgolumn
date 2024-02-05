@@ -19,12 +19,12 @@ namespace PR.Ado.Core.Data
     public class AdoContext
     {
         private readonly string baseUrl; 
-        private readonly string personalAccessToken = "piwdtoyxp2wxd7l23it3xouz4tshsikulaf7v2e4joliahia2d5q"; 
+        private readonly string personalAccessToken = "zzz"; 
 
         public AdoContext() //string orgName, string personalAccessToken)
         {
             baseUrl = "https://dev.azure.com/PRDR/PR/_apis/"; // Uri("https://dev.azure.com/prdr");
-            personalAccessToken = "piwdtoyxp2wxd7l23it3xouz4tshsikulaf7v2e4joliahia2d5q";
+            personalAccessToken = "zzz";
         }
 
         private string FullUrl(string endpointQuery) => $"{this.baseUrl}/{endpointQuery}";

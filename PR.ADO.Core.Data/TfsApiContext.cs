@@ -17,7 +17,7 @@ namespace PR.Ado.Core.Data
         public TfsApiContext() // string orgName, string personalAccessToken)
         {
             this.uri = new Uri("https://dev.azure.com/prdr"); // "https://dev.azure.com/" + orgName);
-            this.personalAccessToken = "piwdtoyxp2wxd7l23it3xouz4tshsikulaf7v2e4joliahia2d5q"; // "q6ytsn4c3lp4f4yywiyrgcjlzzvetglepvsf3tgp66ocfmnlcvoa";  // personalAccessToken;
+            this.personalAccessToken = "zzz"; // "zzz";  // personalAccessToken;
         }
 
         public async Task<List<WorkItem>> GetAdoTfsWorkItemResponse(Wiql wiql, string[] fields)

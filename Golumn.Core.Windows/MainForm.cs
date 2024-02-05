@@ -1,5 +1,7 @@
-﻿using Golumn.Core.Service;
+﻿using Golumn.Core.Domain;
+using Golumn.Core.Service;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using PR.Ado.Core.Domain;
 using Shortcut;
 using System;
@@ -30,9 +32,15 @@ namespace Golumn.Core.Windows
             set { myVisible = value; Visible = value; }
         }
 
+        public static MainForm Instance;
+
+        public List<Alert> Alerts { get; set; } = new List<Alert>();
+        public AlertService AlertService { get; private set; } = new AlertService();
+
         public MainForm()
         {
             InitializeComponent();
+            Instance = this;
         }
 
         private void MyHide()
@@ -53,6 +61,22 @@ namespace Golumn.Core.Windows
         {
             MyHide();
 
+            try
+            {
+                // Setup Alerts
+                Alerts = this.AlertService.ReadAlertsFromFile("alerts.json");
+
+                timer1 = new Timer(this.components);
+                timer1.Tick += Timer1_Tick;
+                timer1.Interval = 10000;
+
+                timer1.Start();
+            }
+            catch (Exception)
+            {
+                // Ignored because no alert file found does not cause and issue. 
+            }
+
             // toggle
             var hotkeyValue = registryKey.GetValue(registryKeyName);
             if (hotkeyValue == null || String.IsNullOrEmpty(hotkeyValue.ToString()))
@@ -72,6 +96,26 @@ namespace Golumn.Core.Windows
                 {
                 }
             }
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            this.Alerts?.ForEach(alert =>
+            {
+                if (this.AlertService.AlertMatch(alert))
+                {
+                    string alertMessage = $"Alert: {alert.Title} \nDate Time: {alert.AlertDateTime.ToString("M/d h:m tt")} \nRepeat: {alert.Repeat} \nDays of Week: {alert.DaysOfWeek} ";
+                    MessageBox.Show(alertMessage, alert.Title, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+
+                    // Sleep for 1 second
+                    System.Threading.Thread.Sleep(60000);
+                    timer1.Enabled = true;
+                    return;
+                }
+            });
+
+            timer1.Enabled = true;
         }
 
         public async void ShowLogText()
@@ -177,6 +221,30 @@ namespace Golumn.Core.Windows
         private async void generateTimesheetToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") == DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"))
+            {
+                MessageBox.Show("Alert");
+                // Sleep for 1 second
+                System.Threading.Thread.Sleep(800);
+                timer1.Enabled = true;
+                return;
+            }
+
+        }
+
+        private void pullRequestsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void viewAlertsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var viewAlertsForm = new ViewAlerts();
+            viewAlertsForm.ShowDialog();
         }
     }
 }

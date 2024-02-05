@@ -29,147 +29,155 @@ namespace Golumn.Core.Windows
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonReset = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.iconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pullRequestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateTimesheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.icon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.hotkeyTextBox = new Shortcut.Forms.HotkeyTextBox();
-            this.iconContextMenu.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new System.Windows.Forms.Label();
+            buttonReset = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
+            iconContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
+            logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            hotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            viewLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            pullRequestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            generateTimesheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            icon = new System.Windows.Forms.NotifyIcon(components);
+            hotkeyTextBox = new Shortcut.Forms.HotkeyTextBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            viewAlertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            iconContextMenu.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Hotkey for open log";
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.Location = new System.Drawing.Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(148, 21);
+            label1.TabIndex = 0;
+            label1.Text = "Hotkey for open log";
             // 
             // buttonReset
             // 
-            this.buttonReset.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonReset.Location = new System.Drawing.Point(176, 33);
-            this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(75, 27);
-            this.buttonReset.TabIndex = 2;
-            this.buttonReset.Text = "Reset";
-            this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            buttonReset.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonReset.Location = new System.Drawing.Point(176, 33);
+            buttonReset.Name = "buttonReset";
+            buttonReset.Size = new System.Drawing.Size(75, 27);
+            buttonReset.TabIndex = 2;
+            buttonReset.Text = "Reset";
+            buttonReset.UseVisualStyleBackColor = true;
+            buttonReset.Click += buttonReset_Click;
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(176, 66);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 27);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Ok";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button1.Location = new System.Drawing.Point(176, 66);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(75, 27);
+            button1.TabIndex = 3;
+            button1.Text = "Ok";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // iconContextMenu
             // 
-            this.iconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logToolStripMenuItem,
-            this.hotkeyToolStripMenuItem,
-            this.viewLogToolStripMenuItem,
-            this.pullRequestsToolStripMenuItem,
-            this.generateTimesheetToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.iconContextMenu.Name = "iconContextMenu";
-            this.iconContextMenu.Size = new System.Drawing.Size(181, 158);
+            iconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { logToolStripMenuItem, hotkeyToolStripMenuItem, viewLogToolStripMenuItem, pullRequestsToolStripMenuItem, viewAlertsToolStripMenuItem, generateTimesheetToolStripMenuItem, exitToolStripMenuItem });
+            iconContextMenu.Name = "iconContextMenu";
+            iconContextMenu.Size = new System.Drawing.Size(181, 180);
             // 
             // logToolStripMenuItem
             // 
-            this.logToolStripMenuItem.Name = "logToolStripMenuItem";
-            this.logToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.logToolStripMenuItem.Text = "Log";
-            this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
+            logToolStripMenuItem.Name = "logToolStripMenuItem";
+            logToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            logToolStripMenuItem.Text = "Log";
+            logToolStripMenuItem.Click += logToolStripMenuItem_Click;
             // 
             // hotkeyToolStripMenuItem
             // 
-            this.hotkeyToolStripMenuItem.Name = "hotkeyToolStripMenuItem";
-            this.hotkeyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.hotkeyToolStripMenuItem.Text = "Hotkey";
-            this.hotkeyToolStripMenuItem.Click += new System.EventHandler(this.hotkeyToolStripMenuItem_Click);
+            hotkeyToolStripMenuItem.Name = "hotkeyToolStripMenuItem";
+            hotkeyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            hotkeyToolStripMenuItem.Text = "Hotkey";
+            hotkeyToolStripMenuItem.Click += hotkeyToolStripMenuItem_Click;
             // 
             // viewLogToolStripMenuItem
             // 
-            this.viewLogToolStripMenuItem.Name = "viewLogToolStripMenuItem";
-            this.viewLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.viewLogToolStripMenuItem.Text = "Edit Log";
-            this.viewLogToolStripMenuItem.Click += new System.EventHandler(this.viewLogToolStripMenuItem_Click);
+            viewLogToolStripMenuItem.Name = "viewLogToolStripMenuItem";
+            viewLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            viewLogToolStripMenuItem.Text = "Edit Log";
+            viewLogToolStripMenuItem.Click += viewLogToolStripMenuItem_Click;
             // 
             // pullRequestsToolStripMenuItem
             // 
-            this.pullRequestsToolStripMenuItem.Name = "pullRequestsToolStripMenuItem";
-            this.pullRequestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pullRequestsToolStripMenuItem.Text = "Pull Reuests";
+            pullRequestsToolStripMenuItem.Name = "pullRequestsToolStripMenuItem";
+            pullRequestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            pullRequestsToolStripMenuItem.Text = "Pull Requests";
+            pullRequestsToolStripMenuItem.Click += pullRequestsToolStripMenuItem_Click;
             // 
             // generateTimesheetToolStripMenuItem
             // 
-            this.generateTimesheetToolStripMenuItem.Name = "generateTimesheetToolStripMenuItem";
-            this.generateTimesheetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.generateTimesheetToolStripMenuItem.Text = "Generate Timesheet";
-            this.generateTimesheetToolStripMenuItem.Click += new System.EventHandler(this.generateTimesheetToolStripMenuItem_Click);
+            generateTimesheetToolStripMenuItem.Name = "generateTimesheetToolStripMenuItem";
+            generateTimesheetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            generateTimesheetToolStripMenuItem.Text = "Generate Timesheet";
+            generateTimesheetToolStripMenuItem.Click += generateTimesheetToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // icon
             // 
-            this.icon.ContextMenuStrip = this.iconContextMenu;
-            this.icon.Icon = ((System.Drawing.Icon)(resources.GetObject("icon.Icon")));
-            this.icon.Text = "notifyIcon1";
-            this.icon.Visible = true;
-            this.icon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.icon_MouseClick);
+            icon.ContextMenuStrip = iconContextMenu;
+            icon.Icon = (System.Drawing.Icon)resources.GetObject("icon.Icon");
+            icon.Text = "notifyIcon1";
+            icon.Visible = true;
+            icon.MouseClick += icon_MouseClick;
             // 
             // hotkeyTextBox
             // 
-            this.hotkeyTextBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.hotkeyTextBox.Hotkey = null;
-            this.hotkeyTextBox.Location = new System.Drawing.Point(12, 33);
-            this.hotkeyTextBox.Name = "hotkeyTextBox";
-            this.hotkeyTextBox.Size = new System.Drawing.Size(133, 27);
-            this.hotkeyTextBox.TabIndex = 4;
-            this.hotkeyTextBox.Text = "None";
-            this.hotkeyTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.hotkeyTextBox_KeyDown);
-            this.hotkeyTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.hotkeyTextBox_KeyPress);
+            hotkeyTextBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            hotkeyTextBox.Hotkey = null;
+            hotkeyTextBox.Location = new System.Drawing.Point(12, 33);
+            hotkeyTextBox.Name = "hotkeyTextBox";
+            hotkeyTextBox.Size = new System.Drawing.Size(133, 27);
+            hotkeyTextBox.TabIndex = 4;
+            hotkeyTextBox.Text = "None";
+            hotkeyTextBox.KeyDown += hotkeyTextBox_KeyDown;
+            hotkeyTextBox.KeyPress += hotkeyTextBox_KeyPress;
+            // 
+            // timer1
+            // 
+            timer1.Interval = 990;
+            timer1.Tick += timer1_Tick;
+            // 
+            // viewAlertsToolStripMenuItem
+            // 
+            viewAlertsToolStripMenuItem.Name = "viewAlertsToolStripMenuItem";
+            viewAlertsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            viewAlertsToolStripMenuItem.Text = "View Alerts";
+            viewAlertsToolStripMenuItem.Click += viewAlertsToolStripMenuItem_Click;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 105);
-            this.Controls.Add(this.hotkeyTextBox);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonReset);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MainForm";
-            this.Text = "MainForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.iconContextMenu.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(264, 105);
+            Controls.Add(hotkeyTextBox);
+            Controls.Add(button1);
+            Controls.Add(buttonReset);
+            Controls.Add(label1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Name = "MainForm";
+            Text = "MainForm";
+            FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
+            iconContextMenu.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -186,5 +194,7 @@ namespace Golumn.Core.Windows
         private Shortcut.Forms.HotkeyTextBox hotkeyTextBox;
         public System.Windows.Forms.NotifyIcon icon;
         private System.Windows.Forms.ToolStripMenuItem generateTimesheetToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem viewAlertsToolStripMenuItem;
     }
 }
