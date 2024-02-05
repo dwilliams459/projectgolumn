@@ -6,7 +6,7 @@
   },
   "ConnectionStrings": {
         "PREventTracker": "Data Source=.\\sqlexpress;Initial Catalog=PREventTracker;Integrated Security=True",
-        "MetastormDB": "Data Source=uatdbdata01.recovery.pr;Initial Catalog=MetastormV9_DEV;User ID=SVC_MVC_Admin;Password=HFpuyfhu570$"
+        "MetastormDB": "Data Source=zzz;Initial Catalog=zzz;User ID=zzz;Password=zzz"
   },
   "reportFilename": "c:/glm/timereport.csv",
   "logFilename": "c:/glm/worklog.txt",

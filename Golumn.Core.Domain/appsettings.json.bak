@@ -7,7 +7,7 @@
     "AllowedHosts": "*",
     "ConnectionStrings": {
         "PREventTracker": "Server=(LocalDB)\\MSSQLLocalDB;Database=TimeEvents;Integrated Security=True;Connect Timeout=30",
-        "MetastormDB": "Data Source=uatdbdata01.recovery.pr;Initial Catalog=MetastormV9_DEV;User ID=SVC_MVC_Admin;Password=HFpuyfhu570$"
+        "MetastormDB": "Data Source=zzz;Initial Catalog=zzz;User ID=zzz;Password=zzz$"
     },
     "BaseUri": "https://dev.azure.com/prdr",
     "defaultPrUsername": "david.williams@recovery.pr",
