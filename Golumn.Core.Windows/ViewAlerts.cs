@@ -38,17 +38,17 @@ namespace Golumn.Core.Windows
                 }
 
                 var alertsText = File.ReadAllText(_config.GetValue<string>("alertsfilename"));
-                richTextBox1.Text = alertsText;
+                //richTextBox1.Text = alertsText;
 
-                richTextBox1.VisibleChanged += (sender, e) =>
-                {
-                    if (richTextBox1.Visible)
-                    {
-                        richTextBox1.SelectionLength = 0;
-                        richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                        richTextBox1.ScrollToCaret();
-                    }
-                };
+                //richTextBox1.VisibleChanged += (sender, e) =>
+                //{
+                //    if (richTextBox1.Visible)
+                //    {
+                //        richTextBox1.SelectionLength = 0;
+                //        richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                //        richTextBox1.ScrollToCaret();
+                //    }
+                //};
 
                 dataGridView1.CellContentClick += DataGridView_CellContentClick;
                 // Add ColumnHeaderMouseClick event handler
@@ -87,28 +87,18 @@ namespace Golumn.Core.Windows
             {
                 label1.Text = string.Empty;
 
-                if (string.IsNullOrWhiteSpace(richTextBox1.Text))
+                DialogResult dialogResult = MessageBox.Show("Save Alerts?", "Save Alerts", MessageBoxButtons.OKCancel);
+                if (dialogResult == DialogResult.OK)
                 {
-                    label1.Text = "No text to save";
+                    var alertText = JsonConvert.SerializeObject(alerts, Formatting.Indented);
+                    File.WriteAllText(_config.GetValue<string>("alertsfilename"), alertText);
+
+                    //File.WriteAllText(_config.GetValue<string>("alertsfilename"), richTextBox1.Text);
                 }
-                else
-                {
-                    DialogResult dialogResult = MessageBox.Show("Save Alerts?", "Save Alerts", MessageBoxButtons.OKCancel);
-                    if (dialogResult == DialogResult.OK)
-                    {
-                        var alertText = JsonConvert.SerializeObject(alerts, Formatting.Indented);
-                        File.WriteAllText(_config.GetValue<string>("alertsfilename"), alertText);
 
-                        //File.WriteAllText(_config.GetValue<string>("alertsfilename"), richTextBox1.Text);
-                    }
+                MainForm.Instance.Alerts = MainForm.Instance.AlertService.ReadAlertsFromFile(_config.GetValue<string>("alertsfilename"));
 
-                    MainForm.Instance.Alerts = MainForm.Instance.AlertService.ReadAlertsFromFile(_config.GetValue<string>("alertsfilename"));
-
-                    LoadCalendarEventsFromJson();
-
-                    var alertsText = File.ReadAllText(_config.GetValue<string>("alertsfilename"));
-                    richTextBox1.Text = alertsText;
-                }
+                LoadCalendarEventsFromJson();
             }
             catch (Exception ex)
             {

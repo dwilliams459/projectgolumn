@@ -37,15 +37,19 @@ namespace Golumn.Core.Windows
             button1 = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             dataGridView1 = new System.Windows.Forms.DataGridView();
+            alertBindingSource = new System.Windows.Forms.BindingSource(components);
+            calendarEventBindingSource = new System.Windows.Forms.BindingSource(components);
+            button3 = new System.Windows.Forms.Button();
             Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             AlertDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             AlertEndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Repeat = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            DaysOfWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            alertBindingSource = new System.Windows.Forms.BindingSource(components);
-            calendarEventBindingSource = new System.Windows.Forms.BindingSource(components);
-            button3 = new System.Windows.Forms.Button();
+            Monday = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            Tuesday = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            Wednesday = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            Thursday = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            Friday = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)alertBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)calendarEventBindingSource).BeginInit();
@@ -54,7 +58,7 @@ namespace Golumn.Core.Windows
             // button2
             // 
             button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            button2.Location = new System.Drawing.Point(793, 413);
+            button2.Location = new System.Drawing.Point(694, 413);
             button2.Name = "button2";
             button2.Size = new System.Drawing.Size(75, 23);
             button2.TabIndex = 1;
@@ -65,7 +69,7 @@ namespace Golumn.Core.Windows
             // button1
             // 
             button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            button1.Location = new System.Drawing.Point(877, 413);
+            button1.Location = new System.Drawing.Point(778, 413);
             button1.Name = "button1";
             button1.Size = new System.Drawing.Size(75, 23);
             button1.TabIndex = 2;
@@ -88,14 +92,34 @@ namespace Golumn.Core.Windows
             dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Delete, titleDataGridViewTextBoxColumn, AlertDateTime, AlertEndTime, Repeat, DaysOfWeek });
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Delete, titleDataGridViewTextBoxColumn, AlertDateTime, AlertEndTime, Repeat, Monday, Tuesday, Wednesday, Thursday, Friday });
             dataGridView1.DataSource = alertBindingSource;
             dataGridView1.Location = new System.Drawing.Point(12, 11);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new System.Drawing.Size(940, 396);
+            dataGridView1.Size = new System.Drawing.Size(841, 396);
             dataGridView1.TabIndex = 5;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // alertBindingSource
+            // 
+            alertBindingSource.DataSource = typeof(Domain.Alert);
+            alertBindingSource.CurrentChanged += alertBindingSource_CurrentChanged;
+            // 
+            // calendarEventBindingSource
+            // 
+            calendarEventBindingSource.DataSource = typeof(CalendarEvent);
+            // 
+            // button3
+            // 
+            button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            button3.Location = new System.Drawing.Point(12, 413);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(75, 23);
+            button3.TabIndex = 6;
+            button3.Text = "Add";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // Delete
             // 
@@ -135,38 +159,46 @@ namespace Golumn.Core.Windows
             Repeat.Name = "Repeat";
             Repeat.Width = 50;
             // 
-            // DaysOfWeek
+            // Monday
             // 
-            DaysOfWeek.DataPropertyName = "DaysOfWeek";
-            DaysOfWeek.HeaderText = "DaysOfWeek";
-            DaysOfWeek.Name = "DaysOfWeek";
-            DaysOfWeek.Width = 250;
+            Monday.DataPropertyName = "Monday";
+            Monday.HeaderText = " M";
+            Monday.Name = "Monday";
+            Monday.Width = 33;
             // 
-            // alertBindingSource
+            // Tuesday
             // 
-            alertBindingSource.DataSource = typeof(Domain.Alert);
-            alertBindingSource.CurrentChanged += alertBindingSource_CurrentChanged;
+            Tuesday.DataPropertyName = "Tuesday";
+            Tuesday.HeaderText = " T";
+            Tuesday.Name = "Tuesday";
+            Tuesday.Width = 33;
             // 
-            // calendarEventBindingSource
+            // Wednesday
             // 
-            calendarEventBindingSource.DataSource = typeof(CalendarEvent);
+            Wednesday.DataPropertyName = "Wednesday";
+            Wednesday.HeaderText = " W";
+            Wednesday.Name = "Wednesday";
+            Wednesday.Width = 33;
             // 
-            // button3
+            // Thursday
             // 
-            button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button3.Location = new System.Drawing.Point(12, 413);
-            button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(75, 23);
-            button3.TabIndex = 6;
-            button3.Text = "Add";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            Thursday.DataPropertyName = "Thursday";
+            Thursday.HeaderText = " T";
+            Thursday.Name = "Thursday";
+            Thursday.Width = 33;
+            // 
+            // Friday
+            // 
+            Friday.DataPropertyName = "Friday";
+            Friday.HeaderText = " F";
+            Friday.Name = "Friday";
+            Friday.Width = 33;
             // 
             // ViewAlerts
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(964, 448);
+            ClientSize = new System.Drawing.Size(865, 448);
             Controls.Add(button3);
             Controls.Add(dataGridView1);
             Controls.Add(label1);
@@ -199,5 +231,10 @@ namespace Golumn.Core.Windows
         private System.Windows.Forms.DataGridViewTextBoxColumn AlertEndTime;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Repeat;
         private System.Windows.Forms.DataGridViewTextBoxColumn DaysOfWeek;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Monday;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Tuesday;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Wednesday;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Thursday;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Friday;
     }
 }

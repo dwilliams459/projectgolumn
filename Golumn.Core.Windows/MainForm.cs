@@ -106,7 +106,7 @@ namespace Golumn.Core.Windows
             {
                 if (this.AlertService.AlertMatch(alert))
                 {
-                    string alertMessage = $"Alert: {alert.Title} \nDate Time: {alert.AlertDateTime.ToString("M/d h:mm tt")} \nRepeat: {alert.Repeat} \nDays of Week: {alert.DaysOfWeek} ";
+                    string alertMessage = $"Alert: {alert.Title} \nDate Time: {alert.AlertDateTime.ToString("M/d h:mm tt")} \nRepeat: {alert.Repeat} \nDays of Week: {alert.DaysOfWeek()} ";
                     MessageBox.Show(alertMessage, alert.Title, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
 
                     // Sleep for 1 second
