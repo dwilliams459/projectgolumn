@@ -39,12 +39,14 @@ namespace Golumn.Core.Windows
             hotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             viewLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             pullRequestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            viewAlertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             generateTimesheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             icon = new System.Windows.Forms.NotifyIcon(components);
             hotkeyTextBox = new Shortcut.Forms.HotkeyTextBox();
             timer1 = new System.Windows.Forms.Timer(components);
-            viewAlertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             iconContextMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -82,9 +84,10 @@ namespace Golumn.Core.Windows
             // 
             // iconContextMenu
             // 
-            iconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { logToolStripMenuItem, hotkeyToolStripMenuItem, viewLogToolStripMenuItem, pullRequestsToolStripMenuItem, viewAlertsToolStripMenuItem, generateTimesheetToolStripMenuItem, exitToolStripMenuItem });
+            iconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { logToolStripMenuItem, hotkeyToolStripMenuItem, viewLogToolStripMenuItem, pullRequestsToolStripMenuItem, viewAlertsToolStripMenuItem, toolStripMenuItem1, toolStripMenuItem2, generateTimesheetToolStripMenuItem, exitToolStripMenuItem });
             iconContextMenu.Name = "iconContextMenu";
-            iconContextMenu.Size = new System.Drawing.Size(181, 180);
+            iconContextMenu.Size = new System.Drawing.Size(181, 224);
+            iconContextMenu.Opening += iconContextMenu_Opening;
             // 
             // logToolStripMenuItem
             // 
@@ -113,6 +116,20 @@ namespace Golumn.Core.Windows
             pullRequestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             pullRequestsToolStripMenuItem.Text = "Pull Requests";
             pullRequestsToolStripMenuItem.Click += pullRequestsToolStripMenuItem_Click;
+            // 
+            // viewAlertsToolStripMenuItem
+            // 
+            viewAlertsToolStripMenuItem.Name = "viewAlertsToolStripMenuItem";
+            viewAlertsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            viewAlertsToolStripMenuItem.Text = "View Alerts";
+            viewAlertsToolStripMenuItem.Click += viewAlertsToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            toolStripMenuItem1.Text = "Clean Clipboard";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
             // generateTimesheetToolStripMenuItem
             // 
@@ -153,12 +170,12 @@ namespace Golumn.Core.Windows
             timer1.Interval = 990;
             timer1.Tick += timer1_Tick;
             // 
-            // viewAlertsToolStripMenuItem
+            // toolStripMenuItem2
             // 
-            viewAlertsToolStripMenuItem.Name = "viewAlertsToolStripMenuItem";
-            viewAlertsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            viewAlertsToolStripMenuItem.Text = "View Alerts";
-            viewAlertsToolStripMenuItem.Click += viewAlertsToolStripMenuItem_Click;
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            toolStripMenuItem2.Text = "Open Toolbar";
+            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
             // MainForm
             // 
@@ -196,5 +213,7 @@ namespace Golumn.Core.Windows
         private System.Windows.Forms.ToolStripMenuItem generateTimesheetToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem viewAlertsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
     }
 }

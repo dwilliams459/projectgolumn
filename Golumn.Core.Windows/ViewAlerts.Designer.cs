@@ -1,4 +1,6 @@
 ﻿
+using PR.Ado.Core.Domain;
+
 namespace Golumn.Core.Windows
 {
     partial class ViewAlerts
@@ -29,72 +31,156 @@ namespace Golumn.Core.Windows
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewAlerts));
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(1045, 619);
-            this.textBox1.TabIndex = 0;
+            button2 = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
+            label1 = new System.Windows.Forms.Label();
+            dataGridView1 = new System.Windows.Forms.DataGridView();
+            Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            AlertDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            AlertEndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Repeat = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            DaysOfWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            alertBindingSource = new System.Windows.Forms.BindingSource(components);
+            calendarEventBindingSource = new System.Windows.Forms.BindingSource(components);
+            button3 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)alertBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)calendarEventBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // button2
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(901, 645);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            button2.Location = new System.Drawing.Point(793, 413);
+            button2.Name = "button2";
+            button2.Size = new System.Drawing.Size(75, 23);
+            button2.TabIndex = 1;
+            button2.Text = "Save";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(982, 645);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Close";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            button1.Location = new System.Drawing.Point(877, 413);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(75, 23);
+            button1.TabIndex = 2;
+            button1.Text = "Close";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Maroon;
-            this.label1.Location = new System.Drawing.Point(12, 645);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 15);
-            this.label1.TabIndex = 3;
+            label1.AutoSize = true;
+            label1.ForeColor = System.Drawing.Color.Maroon;
+            label1.Location = new System.Drawing.Point(12, 656);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(0, 15);
+            label1.TabIndex = 3;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Delete, titleDataGridViewTextBoxColumn, AlertDateTime, AlertEndTime, Repeat, DaysOfWeek });
+            dataGridView1.DataSource = alertBindingSource;
+            dataGridView1.Location = new System.Drawing.Point(12, 11);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new System.Drawing.Size(940, 396);
+            dataGridView1.TabIndex = 5;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // Delete
+            // 
+            Delete.HeaderText = " -";
+            Delete.MinimumWidth = 25;
+            Delete.Name = "Delete";
+            Delete.Text = " -";
+            Delete.ToolTipText = "Delete";
+            Delete.UseColumnTextForButtonValue = true;
+            Delete.Width = 25;
+            // 
+            // titleDataGridViewTextBoxColumn
+            // 
+            titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
+            titleDataGridViewTextBoxColumn.HeaderText = "Title";
+            titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+            titleDataGridViewTextBoxColumn.Width = 300;
+            // 
+            // AlertDateTime
+            // 
+            AlertDateTime.DataPropertyName = "AlertDateTime";
+            AlertDateTime.HeaderText = "AlertDateTime";
+            AlertDateTime.Name = "AlertDateTime";
+            AlertDateTime.Width = 120;
+            // 
+            // AlertEndTime
+            // 
+            AlertEndTime.DataPropertyName = "AlertEndTime";
+            AlertEndTime.HeaderText = "AlertEndTime";
+            AlertEndTime.Name = "AlertEndTime";
+            AlertEndTime.Width = 120;
+            // 
+            // Repeat
+            // 
+            Repeat.DataPropertyName = "Repeat";
+            Repeat.HeaderText = "Repeat";
+            Repeat.Name = "Repeat";
+            Repeat.Width = 50;
+            // 
+            // DaysOfWeek
+            // 
+            DaysOfWeek.DataPropertyName = "DaysOfWeek";
+            DaysOfWeek.HeaderText = "DaysOfWeek";
+            DaysOfWeek.Name = "DaysOfWeek";
+            DaysOfWeek.Width = 250;
+            // 
+            // alertBindingSource
+            // 
+            alertBindingSource.DataSource = typeof(Domain.Alert);
+            alertBindingSource.CurrentChanged += alertBindingSource_CurrentChanged;
+            // 
+            // calendarEventBindingSource
+            // 
+            calendarEventBindingSource.DataSource = typeof(CalendarEvent);
+            // 
+            // button3
+            // 
+            button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            button3.Location = new System.Drawing.Point(12, 413);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(75, 23);
+            button3.TabIndex = 6;
+            button3.Text = "Add";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // ViewAlerts
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1069, 680);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ViewAlerts";
-            this.Text = "ViewAlerts";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(964, 448);
+            Controls.Add(button3);
+            Controls.Add(dataGridView1);
+            Controls.Add(label1);
+            Controls.Add(button1);
+            Controls.Add(button2);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Name = "ViewAlerts";
+            Text = "ViewAlerts";
+            Load += ViewAlerts_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)alertBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)calendarEventBindingSource).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -103,5 +189,15 @@ namespace Golumn.Core.Windows
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.BindingSource calendarEventBindingSource;
+        private System.Windows.Forms.BindingSource alertBindingSource;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridViewButtonColumn Delete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlertDateTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlertEndTime;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Repeat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DaysOfWeek;
     }
 }

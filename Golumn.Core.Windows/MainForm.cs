@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinClipboard;
 
 namespace Golumn.Core.Windows
 {
@@ -105,7 +106,7 @@ namespace Golumn.Core.Windows
             {
                 if (this.AlertService.AlertMatch(alert))
                 {
-                    string alertMessage = $"Alert: {alert.Title} \nDate Time: {alert.AlertDateTime.ToString("M/d h:m tt")} \nRepeat: {alert.Repeat} \nDays of Week: {alert.DaysOfWeek} ";
+                    string alertMessage = $"Alert: {alert.Title} \nDate Time: {alert.AlertDateTime.ToString("M/d h:mm tt")} \nRepeat: {alert.Repeat} \nDays of Week: {alert.DaysOfWeek} ";
                     MessageBox.Show(alertMessage, alert.Title, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
 
                     // Sleep for 1 second
@@ -233,7 +234,6 @@ namespace Golumn.Core.Windows
                 timer1.Enabled = true;
                 return;
             }
-
         }
 
         private void pullRequestsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -245,6 +245,40 @@ namespace Golumn.Core.Windows
         {
             var viewAlertsForm = new ViewAlerts();
             viewAlertsForm.ShowDialog();
+        }
+
+        private void iconContextMenu_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var text = Clipboard.GetText();
+            text = text.Replace(Environment.NewLine, string.Empty);
+            SetClipboardText(text);
+        }
+
+        private void SetClipboardText(string text)
+        {
+            for (int i = 0; i < 10; i++) // Retry 10 times
+            {
+                try
+                {
+                    Clipboard.SetText(text);
+                    break; // If successful, break the loop
+                }
+                catch (System.Runtime.InteropServices.ExternalException)
+                {
+                    System.Threading.Thread.Sleep(10); // Wait for the clipboard to be available
+                }
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
         }
     }
 }

@@ -34,6 +34,12 @@ namespace Golumn.Core.Service
                 // Days Of Week formated like: "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
                 if (alert.DaysOfWeek.Contains(dayOfWeek, StringComparison.CurrentCultureIgnoreCase) && InRange(alert.AlertDateTime.TimeOfDay, now.TimeOfDay))
                 {
+                    // If today is after alert end time, return false
+                    if (DateTime.Now > alert.AlertEndTime)
+                    {
+                        return false;
+                    }
+
                     return true;
                 }
             } 

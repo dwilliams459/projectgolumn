@@ -32,7 +32,7 @@ namespace Golumn.Core.LogFile
                 return;
             }
 
-            var dateNow = DateTime.Now.ToString("MM/dd/yy");
+            var dateNow = DateTime.Now.ToString("MM/dd/yy HH:mm");
 
             var logfile = _config.GetValue<string>("logFilename");
 
