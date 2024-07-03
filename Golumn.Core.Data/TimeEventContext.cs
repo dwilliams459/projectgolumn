@@ -12,6 +12,7 @@ namespace Golumn.Core.Data
     {
         public DbSet<TimeEvent> TimeEvents { get; set; }
         public DbSet<AdoWorkItem> AdoWorkItems { get; set; }
+        public DbSet<Sprint> Sprints { get; set; }
 
         private readonly string dBPath; 
 
@@ -20,7 +21,7 @@ namespace Golumn.Core.Data
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json").Build();
  
-            dBPath = config.GetConnectionString("MetastormDB"); // PREventTracker");            
+            dBPath = config.GetConnectionString("EventTracker");             
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer(dBPath);

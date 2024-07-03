@@ -37,9 +37,6 @@ namespace Golumn.Core.Windows
             button1 = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             dataGridView1 = new System.Windows.Forms.DataGridView();
-            alertBindingSource = new System.Windows.Forms.BindingSource(components);
-            calendarEventBindingSource = new System.Windows.Forms.BindingSource(components);
-            button3 = new System.Windows.Forms.Button();
             Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             AlertDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,15 +47,22 @@ namespace Golumn.Core.Windows
             Wednesday = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             Thursday = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             Friday = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            alertBindingSource = new System.Windows.Forms.BindingSource(components);
+            calendarEventBindingSource = new System.Windows.Forms.BindingSource(components);
+            button3 = new System.Windows.Forms.Button();
+            monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            dataGridView2 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)alertBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)calendarEventBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // button2
             // 
             button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            button2.Location = new System.Drawing.Point(694, 413);
+            button2.Location = new System.Drawing.Point(940, 413);
             button2.Name = "button2";
             button2.Size = new System.Drawing.Size(75, 23);
             button2.TabIndex = 1;
@@ -69,7 +73,7 @@ namespace Golumn.Core.Windows
             // button1
             // 
             button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            button1.Location = new System.Drawing.Point(778, 413);
+            button1.Location = new System.Drawing.Point(1024, 413);
             button1.Name = "button1";
             button1.Size = new System.Drawing.Size(75, 23);
             button1.TabIndex = 2;
@@ -97,29 +101,9 @@ namespace Golumn.Core.Windows
             dataGridView1.Location = new System.Drawing.Point(12, 11);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new System.Drawing.Size(841, 396);
+            dataGridView1.Size = new System.Drawing.Size(848, 396);
             dataGridView1.TabIndex = 5;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // alertBindingSource
-            // 
-            alertBindingSource.DataSource = typeof(Domain.Alert);
-            alertBindingSource.CurrentChanged += alertBindingSource_CurrentChanged;
-            // 
-            // calendarEventBindingSource
-            // 
-            calendarEventBindingSource.DataSource = typeof(CalendarEvent);
-            // 
-            // button3
-            // 
-            button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button3.Location = new System.Drawing.Point(12, 413);
-            button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(75, 23);
-            button3.TabIndex = 6;
-            button3.Text = "Add";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
             // 
             // Delete
             // 
@@ -194,11 +178,59 @@ namespace Golumn.Core.Windows
             Friday.Name = "Friday";
             Friday.Width = 33;
             // 
+            // alertBindingSource
+            // 
+            alertBindingSource.DataSource = typeof(Domain.Alert);
+            alertBindingSource.CurrentChanged += alertBindingSource_CurrentChanged;
+            // 
+            // calendarEventBindingSource
+            // 
+            calendarEventBindingSource.DataSource = typeof(CalendarEvent);
+            // 
+            // button3
+            // 
+            button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            button3.Location = new System.Drawing.Point(12, 413);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(75, 23);
+            button3.TabIndex = 6;
+            button3.Text = "Add";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // monthCalendar1
+            // 
+            monthCalendar1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            monthCalendar1.Location = new System.Drawing.Point(872, 11);
+            monthCalendar1.Name = "monthCalendar1";
+            monthCalendar1.TabIndex = 7;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            dateTimePicker1.Location = new System.Drawing.Point(872, 182);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new System.Drawing.Size(227, 23);
+            dateTimePicker1.TabIndex = 8;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new System.Drawing.Point(872, 211);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowTemplate.Height = 25;
+            dataGridView2.Size = new System.Drawing.Size(227, 196);
+            dataGridView2.TabIndex = 9;
+            // 
             // ViewAlerts
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(865, 448);
+            ClientSize = new System.Drawing.Size(1111, 448);
+            Controls.Add(dataGridView2);
+            Controls.Add(dateTimePicker1);
+            Controls.Add(monthCalendar1);
             Controls.Add(button3);
             Controls.Add(dataGridView1);
             Controls.Add(label1);
@@ -211,6 +243,7 @@ namespace Golumn.Core.Windows
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)alertBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)calendarEventBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -236,5 +269,8 @@ namespace Golumn.Core.Windows
         private System.Windows.Forms.DataGridViewCheckBoxColumn Wednesday;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Thursday;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Friday;
+        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DataGridView dataGridView2;
     }
 }

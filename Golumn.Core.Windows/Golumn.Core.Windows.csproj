@@ -55,8 +55,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="alerts.json">
+    <None Update="alerts.example.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="alerts.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

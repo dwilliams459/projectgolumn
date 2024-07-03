@@ -1,0 +1,14 @@
+[
+  {
+    "Title": "Alert 1",
+    "AlertDateTime": "2024-02-01T19:44:00",
+    "Repeat": true,
+    "DaysOfWeek": "Sat,Sun"
+  },
+  {
+    "Title": "WM: CGI Daily Standup",
+    "AlertDateTime": "2024-02-05T09:00:00",
+    "Repeat": true,
+    "DaysOfWeek": "mon,wed,fri"
+  }
+]
