@@ -55,6 +55,10 @@ namespace Golumn.Core.Windows
                 dataGridView1.ColumnHeaderMouseClick += DataGridView_ColumnHeaderMouseClick;
 
                 LoadCalendarEventsFromJson();
+
+                newEventTimeMin.Text = DateTime.Now.Minute.ToString();
+                newEventTimeHour.Text = DateTime.Now.Hour.ToString();
+                ddlNewEventAmPm.Text = ((DateTime.Now.Hour / 12) > 1) ? "PM" : "AM";
             }
             catch (Exception ex)
             {
@@ -176,14 +180,44 @@ namespace Golumn.Core.Windows
             }
         }
 
-
-
         private void ViewAlerts_Load(object sender, EventArgs e)
         {
 
         }
 
         private void alertBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // Create a new CalendarEvent
+            Alert newEvent = new Alert();
+            DateTime newEventDateTime = DateTime.Now;
+
+            DateTime.TryParse(newEventDatePicker.Text, out DateTime newEventDate);
+            {
+                newEventDateTime = newEventDate.Date;
+             
+                int.TryParse(newEventTimeHour.Text, out int timeHour);
+                int.TryParse(newEventTimeMin.Text, out int timeMin);
+                int amPm = ddlNewEventAmPm.Text.ToLower() == "pm" ? 1 : 0;
+
+                newEventDateTime = newEventDateTime.AddHours(timeHour).AddMinutes(timeMin).AddHours(amPm * 12);
+            }
+
+            // Add the new CalendarEvent to the list
+            newEvent.AlertDateTime = newEventDateTime;
+            newEvent.Title = txtNewEventDescription.Text;
+            alerts.Add(newEvent);
+
+            // Refresh the DataGridView
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = alerts;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
